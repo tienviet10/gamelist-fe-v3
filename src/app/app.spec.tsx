@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { render } from '@testing-library/react';
 
 import App from './app';
