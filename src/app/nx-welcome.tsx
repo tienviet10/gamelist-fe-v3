@@ -1,4 +1,4 @@
-import Hello from './components/components/component1/Hello';
+import Hello from './components/component1/Hello';
 
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
