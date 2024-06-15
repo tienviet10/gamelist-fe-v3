@@ -1,5 +1,6 @@
 {
-  "ignorePatterns": ["!**/*"],
+  "extends": ["plugin:@nx/react", "../../.eslintrc.base.json"],
+  "ignorePatterns": ["!**/*", "storybook-static"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -13,6 +14,5 @@
       "files": ["*.js", "*.jsx"],
       "rules": {}
     }
-  ],
-  "extends": ["plugin:cypress/recommended", "../.eslintrc.base.json"]
+  ]
 }
