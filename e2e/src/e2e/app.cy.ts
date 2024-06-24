@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { getGreeting } from '../support/app.po';
 
 describe('e2e', () => {
