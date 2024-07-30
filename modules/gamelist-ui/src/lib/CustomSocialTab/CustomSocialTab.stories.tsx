@@ -13,15 +13,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NotSelected: Story = {
-  args: {
-    text: 'Followings',
-    activeStyle: '',
-  },
-};
-
 export const Default: Story = {
   args: {
     text: 'Followings',
+    onPress: () => console.log('hi'),
+    activeStyle: 'active',
   },
 };

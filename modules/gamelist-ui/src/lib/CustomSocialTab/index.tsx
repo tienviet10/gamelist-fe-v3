@@ -1,4 +1,4 @@
-import Example from '@lib/Example';
+// import Example from '@lib/Example';
 
 type Props = {
   text: string;
@@ -22,7 +22,7 @@ export function CustomSocialTab({ text, onPress, activeStyle }: Props) {
       >
         {text} + CustomSocialTab
       </span>
-      <Example />
+      {/* <Example /> */}
     </>
   );
 }
