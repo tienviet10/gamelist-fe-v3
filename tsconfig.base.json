@@ -15,9 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gamelist-fe/gamelist-ui": ["modules/gamelist-ui/src/index.ts"],
       "@app/*": ["src/app/*"],
-      "@lib/*": ["modules/gamelist-ui/src/lib/*"],
+      "@gamelist-fe/gamelist-ui": ["modules/gamelist-ui/src/index.ts"],
+      "@lib/*": ["modules/gamelist-ui/src/lib/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
