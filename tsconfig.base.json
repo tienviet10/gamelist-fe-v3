@@ -2,8 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
+    "baseUrl": ".",
     "sourceMap": true,
-    "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -13,11 +13,11 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
     "paths": {
       "@gamelist-fe/gamelist-ui": ["modules/gamelist-ui/src/index.ts"],
       "@app/*": ["src/app/*"],
       "@lib/*": ["modules/gamelist-ui/src/lib/*"],
+      "@src/*": ["modules/gamelist-ui/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

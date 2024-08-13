@@ -1,7 +1,14 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
-  "plugins": ["@nx", "react", "@typescript-eslint", "import"],
+  "ignorePatterns": [
+    "**/*"
+  ],
+  "plugins": [
+    "@nx",
+    "react",
+    "@typescript-eslint",
+    "import"
+  ],
   "extends": [
     "airbnb",
     "airbnb-typescript",
@@ -31,8 +38,20 @@
     ],
     "@typescript-eslint/no-floating-promises": "off",
     "react/jsx-one-expression-per-line": "off",
-    "spaced-comment": ["error", "always"],
-    "eqeqeq": ["error", "smart"],
+    "react/prop-types": [
+      0,
+      {
+        "skipUndeclared": true
+      }
+    ],
+    "spaced-comment": [
+      "error",
+      "always"
+    ],
+    "eqeqeq": [
+      "error",
+      "smart"
+    ],
     "no-else-return": "error",
     "no-empty-function": "error",
     "react/require-default-props": "off",
@@ -72,43 +91,91 @@
       },
       {
         "blankLine": "always",
-        "prev": ["const", "let", "import"],
+        "prev": [
+          "const",
+          "let",
+          "import"
+        ],
         "next": "*"
       },
       {
         "blankLine": "any",
-        "prev": ["import"],
-        "next": ["import"]
+        "prev": [
+          "import"
+        ],
+        "next": [
+          "import"
+        ]
       },
       {
         "blankLine": "never",
-        "prev": ["const", "let"],
-        "next": ["const", "let"]
+        "prev": [
+          "const",
+          "let"
+        ],
+        "next": [
+          "const",
+          "let"
+        ]
       },
       {
         "blankLine": "always",
-        "prev": ["multiline-const", "multiline-let"],
-        "next": ["*"]
+        "prev": [
+          "multiline-const",
+          "multiline-let"
+        ],
+        "next": [
+          "*"
+        ]
       },
       {
         "blankLine": "always",
-        "prev": ["*"],
-        "next": ["multiline-const", "multiline-let"]
+        "prev": [
+          "*"
+        ],
+        "next": [
+          "multiline-const",
+          "multiline-let"
+        ]
       },
       {
         "blankLine": "always",
-        "prev": ["*"],
-        "next": ["if", "switch", "for", "while", "try", "function", "class"]
+        "prev": [
+          "*"
+        ],
+        "next": [
+          "if",
+          "switch",
+          "for",
+          "while",
+          "try",
+          "function",
+          "class"
+        ]
       },
       {
         "blankLine": "always",
-        "prev": ["if", "switch", "for", "while", "try", "function", "class"],
-        "next": ["*"]
+        "prev": [
+          "if",
+          "switch",
+          "for",
+          "while",
+          "try",
+          "function",
+          "class"
+        ],
+        "next": [
+          "*"
+        ]
       },
       {
         "blankLine": "never",
-        "prev": ["case"],
-        "next": ["case"]
+        "prev": [
+          "case"
+        ],
+        "next": [
+          "case"
+        ]
       }
     ],
     "object-curly-spacing": [
@@ -130,21 +197,41 @@
   },
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@nx/typescript"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nx/javascript"],
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "extends": [
+        "plugin:@nx/javascript"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "files": [
+        "*.spec.ts",
+        "*.spec.tsx",
+        "*.spec.js",
+        "*.spec.jsx"
+      ],
       "env": {
         "jest": true
       },
