@@ -7,7 +7,7 @@
     "strict": true,
     "types": ["vite/client", "vitest"],
     "baseUrl": ".",
-      "paths": {
+    "paths": {
       "@app/*": ["src/app/*"],
       "@gamelist-fe/gamelist-ui": ["modules/gamelist-ui/src/index.ts"],
       "@lib/*": ["modules/gamelist-ui/src/lib/*"],

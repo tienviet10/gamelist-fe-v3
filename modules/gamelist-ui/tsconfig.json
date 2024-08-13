@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "types": ["vite/client"],
-        "baseUrl": ".", // Use current directory as baseUrl
+    "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"]
     }
