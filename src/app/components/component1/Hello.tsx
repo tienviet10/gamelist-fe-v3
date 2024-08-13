@@ -1,4 +1,4 @@
-import { CustomSocialTab } from '@gamelist-fe/gamelist-ui';
+import CustomSocialTab from '@uiLib/CustomSocialTab';
 
 export function Hello() {
   return (

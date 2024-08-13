@@ -1,4 +1,4 @@
-// import Example from '@lib/Example';
+// import Example from '@uiLib/Example';
 
 type Props = {
   text: string;
