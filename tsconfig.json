@@ -5,7 +5,14 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "types": ["vite/client", "vitest"]
+    "types": ["vite/client", "vitest"],
+    "baseUrl": ".",
+      "paths": {
+      "@app/*": ["src/app/*"],
+      "@gamelist-fe/gamelist-ui": ["modules/gamelist-ui/src/index.ts"],
+      "@lib/*": ["modules/gamelist-ui/src/lib/*"],
+      "@src/*": ["modules/gamelist-ui/src/*"]
+    }
   },
   "files": [],
   "include": [],
