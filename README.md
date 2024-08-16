@@ -10,6 +10,8 @@ Enhance your Nx experience by installing [Nx Console](https://nx.dev/nx-console)
 provides an interactive UI to view your projects, run tasks, generate code, and more! Available for VSCode, IntelliJ and
 comes with a LSP for Vim users.
 
+Run `npm add --global nx@latest` to install Nx CLI globally.
+
 ## Start the application
 
 Run `npx nx serve gamelist-fe` to start the development server. Happy coding!
@@ -39,6 +41,11 @@ npx nx run-many -t <target1> <target2> -p <proj1> <proj2>
 ```
 
 Targets can be defined in the `package.json` or `projects.json`. Learn more [in the docs](https://nx.dev/features/run-tasks).
+
+To run storybook for gamelist UI.
+```
+nx run gamelist-ui:storybook
+```
 
 ## Set up CI!
 
