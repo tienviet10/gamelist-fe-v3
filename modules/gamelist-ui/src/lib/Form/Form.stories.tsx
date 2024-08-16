@@ -58,7 +58,43 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    children: [<TestForm />],
+  render: () => {
+    const formSchema = z.object({
+      username: z.string().min(2, {
+        message: 'Username must be at least 2 characters.',
+      }),
+    });
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const form = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        username: '',
+      },
+    });
+
+    function onSubmit() {}
+
+    return (
+      <Form {...form}>
+        <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Username</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormDescription>This is your public display name.</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+    );
   },
 };
