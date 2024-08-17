@@ -1,5 +1,3 @@
-import Hello from './components/component1/Hello';
-
 /*
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  This is a starter component and can be deleted.
@@ -11,7 +9,6 @@ export function NxWelcome({ title }: { title: string }) {
   return (
     <>
       <style />
-      <Hello />
       <div className="wrapper">
         <div className="container">
           <div id="welcome">
