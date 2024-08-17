@@ -16,7 +16,9 @@
     "paths": {
       "@app/*": ["src/app/*"],
       "@lib/*": ["modules/gamelist-ui/src/lib/*"],
-      "@src/*": ["modules/gamelist-ui/src/*"]
+      "@src/*": ["modules/gamelist-ui/src/*"],
+      "@uiLib/*": ["modules/gamelist-ui/src/lib/*"],
+      "@uiSrc/*": ["modules/gamelist-ui/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
