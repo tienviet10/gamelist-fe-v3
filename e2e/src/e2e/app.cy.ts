@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import { getGreeting } from '../support/app.po';
 
 describe('e2e', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display welcome message', () => {
+    // TODO
     // Custom command example, see `../support/commands.ts` file
     // cy.login('my-email@something.com', 'myPassword');
 
