@@ -8,6 +8,7 @@ export const registerRoute = `${authRoute}/register`;
 export const gameRoute = 'game-service';
 export const userGameRoute = `${gameRoute}/${apiV1}/usergames`;
 export const getUserGamesByStatus = `${gameRoute}/${apiV1}/usergames/status`;
+export const gameFiltersRoute = `${gameRoute}/gamefilters`;
 
 export const socialRoute = 'social-service';
 export const forumRoute = `${socialRoute}/${apiV1}/${interactiveEntity}/forum-pageable`;
