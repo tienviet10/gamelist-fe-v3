@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import client from '@app/utils/authApi';
 import { CustomAxiosResponse, ErrorResponse, UserData } from '@app/constants/global/types';
 import { loginRoute, registerRoute } from '@app/constants/global/urls';
+import { useCallback, useMemo } from 'react';
 
 type LoginParams = {
   email: string;
@@ -20,11 +21,15 @@ type SignUpParams = {
 };
 
 export const useAuth = () => {
-  const loginUser = async (params: LoginParams): Promise<CustomAxiosResponse<LoginResponse>> =>
-    client.post(loginRoute, params);
+  const loginUser = useCallback(
+    async (params: LoginParams): Promise<CustomAxiosResponse<LoginResponse>> => client.post(loginRoute, params),
+    []
+  );
 
-  const signUpUser = async (params: SignUpParams): Promise<CustomAxiosResponse<LoginResponse>> =>
-    client.post(registerRoute, params);
+  const signUpUser = useCallback(
+    async (params: SignUpParams): Promise<CustomAxiosResponse<LoginResponse>> => client.post(registerRoute, params),
+    []
+  );
 
   const {
     mutate: signInMutation,
@@ -42,14 +47,28 @@ export const useAuth = () => {
     isError: signUpIsError,
   } = useMutation<CustomAxiosResponse<LoginResponse>, ErrorResponse, SignUpParams>({ mutationFn: signUpUser });
 
-  return {
-    signInMutation,
-    signInResponse,
-    signInError,
-    signInIsError,
-    signUpMutation,
-    signUpResponse,
-    signUpError,
-    signUpIsError,
-  };
+  const memoizedValue = useMemo(
+    () => ({
+      signInMutation,
+      signInResponse,
+      signInError,
+      signInIsError,
+      signUpMutation,
+      signUpResponse,
+      signUpError,
+      signUpIsError,
+    }),
+    [
+      signInMutation,
+      signInResponse,
+      signInError,
+      signInIsError,
+      signUpMutation,
+      signUpResponse,
+      signUpError,
+      signUpIsError,
+    ]
+  );
+
+  return memoizedValue;
 };
