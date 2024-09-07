@@ -1,9 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import NxWelcome from '@app/nx-welcome';
+import ContextWrapper from 'src/ContextWrapper';
 import Test from './test';
 
 export function App() {
-  return <Test />;
+  return (
+    <ContextWrapper>
+      <Test />
+    </ContextWrapper>
+  );
 }
 
 export default App;
