@@ -33,3 +33,38 @@ export interface UserData {
   userPicture: string;
   bannerPicture: string;
 }
+
+export type Game = {
+  id: number;
+  name: string;
+  description: string;
+  bannerURL?: string;
+  imageURL?: string;
+  genres: string[];
+  platforms: string[];
+  tags: string[];
+  avgScore?: number;
+  totalRating?: number;
+  releaseDate: Date;
+  gameLiked: boolean;
+  gameAdded: boolean;
+};
+
+export type RequiredGame = Required<Game>;
+
+export type UserGamesByStatus = {
+  playing: RequiredGame[];
+  playingCount: number;
+  completed: RequiredGame[];
+  completedCount: number;
+  paused: RequiredGame[];
+  pausedCount: number;
+  planning: RequiredGame[];
+  planningCount: number;
+  dropped: RequiredGame[];
+  droppedCount: number;
+  justAdded: RequiredGame[];
+  justAddedCount: number;
+  totalCount: number;
+  listsOrder: string;
+};
