@@ -16,6 +16,7 @@
               // `react` first, `next` second, then packages starting with a character
               ["^react$", "^next", "^[a-z]"],
               // Packages starting with `@`
+              ["^@app/utils(/.*|$)","^@tanstack(/.*|$)"],
               ["^@"],
               // Packages starting with `~`
               ["^~"],

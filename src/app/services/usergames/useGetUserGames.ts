@@ -1,9 +1,10 @@
 import { useCallback, useMemo } from 'react';
 
-import { CustomAxiosResponse, ErrorResponse, UserGamesByStatus } from '@app/constants/global/types';
-import { getUserGamesByStatus } from '@app/constants/global/urls';
 import client from '@app/utils/authApi';
 import { useQuery } from '@tanstack/react-query';
+
+import { CustomAxiosResponse, ErrorResponse, UserGamesByStatus } from '@app/constants/global/types';
+import { getUserGamesByStatus } from '@app/constants/global/urls';
 
 type UserGamesType = {
   userGamesByStatus: UserGamesByStatus;

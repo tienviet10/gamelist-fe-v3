@@ -1,9 +1,10 @@
 import { useCallback, useMemo } from 'react';
 
-import { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
-import { userGameRoute } from '@app/constants/global/urls';
 import client from '@app/utils/authApi';
 import { useQuery } from '@tanstack/react-query';
+
+import { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
+import { userGameRoute } from '@app/constants/global/urls';
 
 type UserGamesByGameID = {
   id: number;
