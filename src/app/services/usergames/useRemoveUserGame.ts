@@ -1,8 +1,8 @@
-import { userGameRoute } from '@app/constants/global/urls';
-import client from '@app/utils/authApi';
-import { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
-import { useMutation } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
+import client from '@app/utils/authApi';
+import { useMutation } from '@tanstack/react-query';
+import { userGameRoute } from '@app/constants/global/urls';
+import { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
 
 type RemoveUserGameResponse = {
   userGame: {
