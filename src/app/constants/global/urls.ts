@@ -17,7 +17,7 @@ export const postingRoute = `${socialRoute}/${apiV1}/post`;
 
 export const userRoute = 'user-service';
 export const userInfoRoute = `${userRoute}/${apiV1}/user/userinfo`;
-export const addFollow = `${userRoute}/${apiV1}/user/follows`;
-export const getFollows = `${userRoute}/${apiV1}/user/all-follow`;
-export const removeFollow = `${userRoute}/${apiV1}/user/unfollow`;
-export const removeFollower = `${userRoute}/${apiV1}/user/remove-follower`;
+export const addFollowRoute = `${userRoute}/${apiV1}/user/follows`;
+export const removeFollowRoute = `${userRoute}/${apiV1}/user/unfollow`;
+export const removeFollowerRoute = `${userRoute}/${apiV1}/user/remove-follower`;
+export const getAllFollowRoute = `${userRoute}/${apiV1}/user/all-follow`;
