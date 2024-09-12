@@ -1,6 +1,6 @@
-import * as Slider from '@radix-ui/react-slider';
 import { Button } from '@lib/Button/Button';
 import { Input } from '@lib/Input/Input';
+import * as Slider from '@radix-ui/react-slider';
 
 export default function Test() {
   return (
