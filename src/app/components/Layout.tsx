@@ -1,9 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import TopNav from './TopNav';
-import Footer from './Footer';
 
-const Layout: React.FC = () => {
+import Footer from './Footer';
+import TopNav from './TopNav';
+
+export default function Layout() {
   return (
     <div className="app-layout">
       <TopNav />
@@ -13,6 +14,4 @@ const Layout: React.FC = () => {
       <Footer />
     </div>
   );
-};
-
-export default Layout;
+}

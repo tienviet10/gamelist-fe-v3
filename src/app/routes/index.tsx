@@ -1,8 +1,10 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
+
 import Layout from '../components/Layout';
-import { publicRoutes } from './publicRoutes';
-import { protectedRoutes } from './protectedRoutes';
 import NotFoundPage from '../pages/NotFoundPage';
+
+import { protectedRoutes } from './protectedRoutes';
+import { publicRoutes } from './publicRoutes';
 
 const routes: RouteObject[] = [
   {

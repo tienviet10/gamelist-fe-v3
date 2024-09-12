@@ -1,6 +1,8 @@
 import { RouteObject } from 'react-router-dom';
-import ProtectedRoute from './ProtectedRoute';
+
 import UserProfile from '../pages/UserProfile';
+
+import ProtectedRoute from './ProtectedRoute';
 
 export const protectedRoutes: RouteObject[] = [
   {
