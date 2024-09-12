@@ -9,10 +9,8 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Checkbox } from '@lib/Checkbox/Checkbox';
 
 const formSchema = z.object({
-  email: z.string().min(2, { message: 'Must be atleast 2 characters' }).max(50),
-  username: z.string().min(2, { message: 'Must be atleast 2 characters' }).max(50),
-  password: z.string().min(2, { message: 'Must be atleast 2 characters' }).max(50),
-  confirmPassword: z.string().min(2, { message: 'Must be atleast 2 characters' }).max(50),
+  email: z.string().min(2, { message: 'Please enter your email' }).max(50),
+  password: z.string().min(2, { message: 'Please enter your password' }).max(50),
 });
 
 const Login = () => {
@@ -20,9 +18,7 @@ const Login = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
-      username: '',
       password: '',
-      confirmPassword: '',
     },
   });
 
@@ -33,67 +29,53 @@ const Login = () => {
   }
 
   return (
-    <Form {...form}>
-      <p>Sign up to GameList</p>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {/* Email */}
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input type="email" placeholder="Email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Username */}
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input placeholder="Username" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Password */}
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input type="password" placeholder="Password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Confirm Password */}
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input type="password" placeholder="Confirm Password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Sign up</Button>
-      </form>
-    </Form>
+    <div className="mt-[60px] flex max-w-[400px] flex-col items-center rounded-md bg-[#fff] p-10">
+      <Form {...form}>
+        <div className="mb-[60px] mt-[20px] text-[24px] font-semibold">
+          <p>Login</p>
+        </div>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex max-w-[320px] flex-col items-center space-y-8">
+          {/* Email */}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input type="email" placeholder="Email" {...field} variant="loginSignUp" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Password */}
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input type="password" placeholder="Password" {...field} variant="loginSignUp" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" variant="loginSignUp" size="loginSignUp">
+            Login
+          </Button>
+        </form>
+      </Form>
+      <a href="/forgot-password" className="mt-[20px] text-[14px] text-[#8f99a1] hover:text-[#3db4f2]">
+        Forgot password?
+      </a>
+      <div className="mt-[80px] flex flex-row text-[14px]">
+        <a href="/sign-up" className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]">
+          <p>Not registered?&nbsp;</p>
+          <p className="text-[#3db4f2]">Create an account</p>
+        </a>
+      </div>
+    </div>
   );
 };
 
