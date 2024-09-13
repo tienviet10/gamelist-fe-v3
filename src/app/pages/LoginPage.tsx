@@ -1,7 +1,9 @@
+import Login from '@app/components/Login/Login';
+
 export function LoginPage() {
   return (
-    <div>
-      <h1>This is the login page</h1>
+    <div className="flex items-center justify-center">
+      <Login />
     </div>
   );
 }
