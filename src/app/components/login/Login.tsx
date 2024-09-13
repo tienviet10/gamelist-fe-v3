@@ -70,7 +70,7 @@ const Login = () => {
         Forgot password?
       </a>
       <div className="mt-[80px] flex flex-row text-[14px]">
-        <a href="/sign-up" className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]">
+        <a href="/signup" className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]">
           <p>Not registered?&nbsp;</p>
           <p className="text-[#3db4f2]">Create an account</p>
         </a>
