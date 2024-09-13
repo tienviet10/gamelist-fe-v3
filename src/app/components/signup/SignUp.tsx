@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast,ToastContainer } from 'react-toastify';
+import { z } from 'zod';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@lib/Button/Button';
-import { Input } from '@lib/Input/Input';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@lib/Form/Form';
 import { Checkbox } from '@lib/Checkbox/Checkbox';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@lib/Form/Form';
+import { Input } from '@lib/Input/Input';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const formSchema = z.object({
   email: z.string().min(2, { message: 'Please enter your email address' }).max(50),
@@ -17,7 +18,7 @@ const formSchema = z.object({
   confirmPassword: z.string().min(2, { message: 'Confirm password must be atleast 2 characters' }).max(50),
 });
 
-const SignUp = () => {
+function SignUp() {
   const [formCheckbox, setFormCheckbox] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,7 +50,7 @@ const SignUp = () => {
         <div className="mb-[60px] mt-[20px] text-[24px] font-semibold">
           <p>Sign up to GameList</p>
         </div>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex max-w-[320px] flex-col items-center space-y-8">
+        <form className="flex max-w-[320px] flex-col items-center space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
           {/* Email */}
           <FormField
             control={form.control}
@@ -57,7 +58,7 @@ const SignUp = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="email" placeholder="Email" {...field} variant="loginSignUp" />
+                  <Input placeholder="Email" type="email" {...field} variant="loginSignUp" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -85,7 +86,7 @@ const SignUp = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="password" placeholder="Password" {...field} variant="loginSignUp" />
+                  <Input placeholder="Password" type="password" {...field} variant="loginSignUp" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -99,7 +100,7 @@ const SignUp = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="password" placeholder="Confirm Password" {...field} variant="loginSignUp" />
+                  <Input placeholder="Confirm Password" type="password" {...field} variant="loginSignUp" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -109,25 +110,25 @@ const SignUp = () => {
           {/* Checkbox */}
           <div className="flex flex-row items-center justify-center text-[14px] text-[#8f99a1]">
             <Checkbox
+              checked={formCheckbox}
               className="border-inherit"
               onClick={() => {
                 setFormCheckbox(!formCheckbox);
               }}
-              checked={formCheckbox}
             />
             <p>&nbsp;You agree to our terms of service</p>
           </div>
 
           {/* {modal && <p className="text-[14px] text-[rgb(237,62,62)]">Please agree to our terms of service</p>} */}
 
-          <Button type="submit" variant="loginSignUp" size="loginSignUp">
+          <Button size="loginSignUp" type="submit" variant="loginSignUp">
             Sign up
           </Button>
         </form>
       </Form>
 
       <div className="mt-[80px] flex flex-row text-[14px]">
-        <a href="/login" className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]">
+        <a className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]" href="/login">
           Login
         </a>
         <p>&nbsp;•&nbsp;</p>
@@ -135,6 +136,6 @@ const SignUp = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SignUp;

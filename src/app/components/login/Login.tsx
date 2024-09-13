@@ -1,19 +1,19 @@
 import React from 'react';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@lib/Button/Button';
-import { Input } from '@lib/Input/Input';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@lib/Form/Form';
 import { Checkbox } from '@lib/Checkbox/Checkbox';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@lib/Form/Form';
+import { Input } from '@lib/Input/Input';
 
 const formSchema = z.object({
   email: z.string().min(2, { message: 'Please enter your email' }).max(50),
   password: z.string().min(2, { message: 'Please enter your password' }).max(50),
 });
 
-const Login = () => {
+function Login() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,7 +34,7 @@ const Login = () => {
         <div className="mb-[60px] mt-[20px] text-[24px] font-semibold">
           <p>Login</p>
         </div>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex max-w-[320px] flex-col items-center space-y-8">
+        <form className="flex max-w-[320px] flex-col items-center space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
           {/* Email */}
           <FormField
             control={form.control}
@@ -42,7 +42,7 @@ const Login = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="email" placeholder="Email" {...field} variant="loginSignUp" />
+                  <Input placeholder="Email" type="email" {...field} variant="loginSignUp" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -55,28 +55,28 @@ const Login = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="password" placeholder="Password" {...field} variant="loginSignUp" />
+                  <Input placeholder="Password" type="password" {...field} variant="loginSignUp" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" variant="loginSignUp" size="loginSignUp">
+          <Button size="loginSignUp" type="submit" variant="loginSignUp">
             Login
           </Button>
         </form>
       </Form>
-      <a href="/forgot-password" className="mt-[20px] text-[14px] text-[#8f99a1] hover:text-[#3db4f2]">
+      <a className="mt-[20px] text-[14px] text-[#8f99a1] hover:text-[#3db4f2]" href="/forgot-password">
         Forgot password?
       </a>
       <div className="mt-[80px] flex flex-row text-[14px]">
-        <a href="/signup" className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]">
+        <a className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]" href="/signup">
           <p>Not registered?&nbsp;</p>
           <p className="text-[#3db4f2]">Create an account</p>
         </a>
       </div>
     </div>
   );
-};
+}
 
 export default Login;
