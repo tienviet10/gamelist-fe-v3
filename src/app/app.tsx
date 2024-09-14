@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Login from '@app/components/Login/Login';
-import NxWelcome from '@app/nx-welcome';
 import SignUp from '@app/components/SignUp/SignUp';
+import NxWelcome from '@app/nx-welcome';
 
 export function App() {
   return (
