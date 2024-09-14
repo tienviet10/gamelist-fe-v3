@@ -4,8 +4,7 @@ import { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@lib/Button/Button';
-import { Checkbox } from '@lib/Checkbox/Checkbox';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@lib/Form/Form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@lib/Form/Form';
 import { Input } from '@lib/Input/Input';
 
 const formSchema = z.object({
@@ -25,7 +24,7 @@ function Login() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    // console.log(values);
   }
 
   return (

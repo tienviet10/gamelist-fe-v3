@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast,ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -39,7 +39,7 @@ function SignUp() {
       // check passwords match
       toast.error('Passwords do not match');
     } else {
-      console.log(values);
+      // console.log(values);
     }
   }
 
@@ -132,7 +132,9 @@ function SignUp() {
           Login
         </a>
         <p>&nbsp;•&nbsp;</p>
-        <a className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]">Resend Verification Email</a>
+        <a className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]" href="/resend-verification-email">
+          Resend Verification Email
+        </a>
       </div>
     </div>
   );
