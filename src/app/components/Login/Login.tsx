@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { Link } from 'react-router-dom';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@lib/Button/Button';
@@ -65,14 +66,14 @@ function Login() {
           </Button>
         </form>
       </Form>
-      <a className="mt-[20px] text-[14px] text-[#8f99a1] hover:text-[#3db4f2]" href="/forgot-password">
+      <Link className="mt-[20px] text-[14px] text-[#8f99a1] hover:text-[#3db4f2]" to="/forgot-password">
         Forgot password?
-      </a>
+      </Link>
       <div className="mt-[80px] flex flex-row text-[14px]">
-        <a className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]" href="/signup">
+        <Link className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]" to="/signup">
           <p>Not registered?&nbsp;</p>
           <p className="text-[#3db4f2]">Create an account</p>
-        </a>
+        </Link>
       </div>
     </div>
   );
