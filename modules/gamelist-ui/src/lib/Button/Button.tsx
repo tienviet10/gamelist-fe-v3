@@ -14,7 +14,7 @@ const buttonVariants = cva(
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
-        loginSignUp: 'text-white bg-[#3db4f2] rounded-[3px] mt-[10px] cursor-pointer font-semibold',
+        loginSignUp: 'text-secondary bg-[#3db4f2] rounded-md mt-2.5 cursor-pointer font-semibold',
       },
       size: {
         default: 'h-10 px-4 py-2',

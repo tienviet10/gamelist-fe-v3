@@ -29,12 +29,12 @@ function Login() {
   }
 
   return (
-    <div className="mt-[60px] flex max-w-[400px] flex-col items-center rounded-md bg-[#fff] p-10">
+    <div className="bg-background mt-16 flex max-w-96 flex-col items-center rounded-md p-10">
       <Form {...form}>
-        <div className="mb-[60px] mt-[20px] text-[24px] font-semibold">
+        <div className="text-6 mb-16 mt-5 font-semibold">
           <p>Login</p>
         </div>
-        <form className="flex max-w-[320px] flex-col items-center space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="flex max-w-80 flex-col items-center space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
           {/* Email */}
           <FormField
             control={form.control}
@@ -66,13 +66,13 @@ function Login() {
           </Button>
         </form>
       </Form>
-      <Link className="mt-[20px] text-[14px] text-[#8f99a1] hover:text-[#3db4f2]" to="/forgot-password">
+      <Link className="text-primary mt-5 text-sm" to="/forgot-password">
         Forgot password?
       </Link>
-      <div className="mt-[80px] flex flex-row text-[14px]">
-        <Link className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]" to="/signup">
+      <div className="mt-20 flex flex-row text-sm">
+        <Link className="text-primary flex flex-row" to="/signup">
           <p>Not registered?&nbsp;</p>
-          <p className="text-[#3db4f2]">Create an account</p>
+          <p>Create an account</p>
         </Link>
       </div>
     </div>

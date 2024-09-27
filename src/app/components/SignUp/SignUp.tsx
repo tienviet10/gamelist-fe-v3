@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import { z } from 'zod';
 import { Link } from 'react-router-dom';
 
@@ -42,12 +41,12 @@ function SignUp() {
   }
 
   return (
-    <div className="mt-[60px] flex max-w-[400px] flex-col items-center rounded-md bg-[#fff] p-10">
+    <div className="bg-background mt-16 flex max-w-96 flex-col items-center rounded-md p-10">
       <Form {...form}>
-        <div className="mb-[60px] mt-[20px] text-[24px] font-semibold">
+        <div className="text-6 mb-16 mt-5 font-semibold">
           <p>Sign up to GameList</p>
         </div>
-        <form className="flex max-w-[320px] flex-col items-center space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="flex max-w-80 flex-col items-center space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
           {/* Email */}
           <FormField
             control={form.control}
@@ -110,7 +109,7 @@ function SignUp() {
             name="termsOfService"
             render={({ field }) => (
               <FormItem>
-                <div className="flex flex-row items-center text-[14px] text-[#8f99a1]">
+                <div className="text-primary flex flex-row items-center text-sm">
                   <FormControl>
                     <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
@@ -127,12 +126,12 @@ function SignUp() {
         </form>
       </Form>
 
-      <div className="mt-[80px] flex flex-row text-[14px]">
-        <Link to="/login" className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]">
+      <div className="mt-20 flex flex-row text-sm">
+        <Link to="/login" className="text-primary flex flex-row">
           Login
         </Link>
         <p>&nbsp;•&nbsp;</p>
-        <Link to="/resend-verification-email" className="flex flex-row text-[#8f99a1] hover:text-[#3db4f2]">
+        <Link to="/resend-verification-email" className="text-primary flex flex-row">
           Resend Verification Email
         </Link>
       </div>
