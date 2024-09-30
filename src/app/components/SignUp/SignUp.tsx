@@ -1,12 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { Link } from 'react-router-dom';
+import { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@lib/Button/Button';
 import { Checkbox } from '@lib/Checkbox/Checkbox';
-import { Form, FormControl, FormField, FormItem, FormMessage, FormDescription } from '@lib/Form/Form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@lib/Form/Form';
 import { Input } from '@lib/Input/Input';
 
 const formSchema = z
@@ -127,11 +127,11 @@ function SignUp() {
       </Form>
 
       <div className="mt-20 flex flex-row text-sm">
-        <Link to="/login" className="text-primary flex flex-row">
+        <Link className="text-primary flex flex-row" to="/login">
           Login
         </Link>
         <p>&nbsp;•&nbsp;</p>
-        <Link to="/resend-verification-email" className="text-primary flex flex-row">
+        <Link className="text-primary flex flex-row" to="/resend-verification-email">
           Resend Verification Email
         </Link>
       </div>
