@@ -9,8 +9,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: '',
-        loginSignUp:
-          'w-[290px] px-[15px] focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-[#f2f4f7]',
+        loginSignUp: 'w-72 px-4 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 bg-input',
       },
       size: {
         default: '',
