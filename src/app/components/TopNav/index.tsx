@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect,useState } from 'react';
+
 import { Button } from '@lib/Button/Button';
 
 export default function TopNav() {
@@ -7,6 +8,7 @@ export default function TopNav() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+
       if (currentScrollY <= 40) {
         setTopValue(-currentScrollY);
       } else {
@@ -16,39 +18,40 @@ export default function TopNav() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <header
-      style={{ top: `${topValue}px` }}
       className={`fixed z-10 h-[75px] w-full transition-all duration-500 ease-in-out ${
         topValue === -75 ? 'bg-transparent' : 'bg-[#2b2d42]'
       }`}
+      style={{ top: `${topValue}px` }}
     >
       <div className="mx-auto flex h-full max-w-[1050px] items-center justify-between px-4">
         <div className="cursor-pointer text-2xl font-bold text-white">Game List</div>
         <nav className="ml-10">
           <ul className="flex space-x-6">
             <li>
-              <Button variant="ghost" className="text-white">
+              <Button className="text-white" variant="ghost">
                 Home
               </Button>
             </li>
             <li>
-              <Button variant="ghost" className="text-white">
+              <Button className="text-white" variant="ghost">
                 Game List
               </Button>
             </li>
             <li>
-              <Button variant="ghost" className="text-white">
+              <Button className="text-white" variant="ghost">
                 Social
               </Button>
             </li>
           </ul>
         </nav>
         <div className="flex space-x-2">
-          <Button variant="ghost" className="text-white">
+          <Button className="text-white" variant="ghost">
             Login
           </Button>
           <Button className="bg-blue-500 text-white hover:bg-blue-600">Sign up</Button>
