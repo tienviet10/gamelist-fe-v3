@@ -29,7 +29,7 @@ function Login() {
   }
 
   return (
-    <div className="bg-background mt-16 flex max-w-96 flex-col items-center rounded-md p-10">
+    <div className="bg-background flex max-w-96 flex-col items-center rounded-md p-10">
       <Form {...form}>
         <div className="text-6 mb-16 mt-5 font-semibold">
           <p>Login</p>
