@@ -31,12 +31,12 @@ export default function TopNav() {
   return (
     <>
       <header
-        className={`fixed z-10 h-[75px] w-full transition-all duration-500 ease-in-out ${
+        className={`fixed z-10 h-16 w-full transition-all duration-500 ease-in-out ${
           topValue === -75 ? 'bg-transparent' : 'bg-[#2b2d42]'
         } hidden md:block`}
         style={{ top: `${topValue}px` }}
       >
-        <div className="mx-auto flex h-full max-w-[1050px] items-center justify-between px-4">
+        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4">
           <div className="cursor-pointer text-2xl font-bold text-white">Game List</div>
           <nav className="ml-10">
             <ul className="flex space-x-6">
