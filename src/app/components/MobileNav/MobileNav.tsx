@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@lib/Button/Button';
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetOverlay,
-  SheetClose,
 } from '@src/lib/Sheet/Sheet';
 
 interface MobileNavProps {
@@ -18,9 +18,9 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const navigate = useNavigate();
 
   return (
-    <Sheet open={isOpen} onOpenChange={onClose}>
+    <Sheet onOpenChange={onClose} open={isOpen}>
       <SheetOverlay />
-      <SheetContent side="right" className="w-4/5 max-w-sm bg-[#2b2d42] p-6" hideCloseButton={true}>
+      <SheetContent hideCloseButton className="w-4/5 max-w-sm bg-[#2b2d42] p-6" side="right">
         <div className="flex justify-end">
           <SheetClose asChild>
             <Button className="text-white" size="icon" variant="ghost">
