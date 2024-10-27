@@ -6,9 +6,9 @@ import TopNav from './TopNav';
 
 export default function Layout() {
   return (
-    <div className="app-layout">
+    <div className="app-layout flex flex-col min-h-screen">
       <TopNav />
-      <main>
+      <main className="flex-1 flex">
         <Outlet />
       </main>
       <Footer />
