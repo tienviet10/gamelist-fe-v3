@@ -41,7 +41,13 @@ export default function TopNav() {
           <nav className="ml-10">
             <ul className="flex space-x-6">
               <li>
-                <Button className="text-white" variant="ghost">
+                <Button
+                  className="text-white"
+                  onClick={() => {
+                    navigate('/');
+                  }}
+                  variant="ghost"
+                >
                   Home
                 </Button>
               </li>
@@ -58,14 +64,21 @@ export default function TopNav() {
             </ul>
           </nav>
           <div className="flex space-x-2">
-            <Button className="text-white" onClick={() => {
-              navigate('/login');
-            }} variant="ghost">
+            <Button
+              className="text-white"
+              onClick={() => {
+                navigate('/login');
+              }}
+              variant="ghost"
+            >
               Login
             </Button>
-            <Button className="bg-blue-500 text-white hover:bg-blue-600" onClick={() => {
-              navigate('/signup');
-            }}>
+            <Button
+              className="bg-blue-500 text-white hover:bg-blue-600"
+              onClick={() => {
+                navigate('/signup');
+              }}
+            >
               Sign up
             </Button>
           </div>

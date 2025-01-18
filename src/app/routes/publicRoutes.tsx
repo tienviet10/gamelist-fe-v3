@@ -7,6 +7,7 @@ import SignUpPage from '../pages/SignUpPage';
 
 export const publicRoutes: RouteObject[] = [
   { path: '/', element: <HomePage /> },
+  { path: '/games', element: <HomePage /> },
   { path: '/login', element: <LoginPage /> },
   { path: '/signup', element: <SignUpPage /> },
   { path: '*', element: <NotFoundPage /> },

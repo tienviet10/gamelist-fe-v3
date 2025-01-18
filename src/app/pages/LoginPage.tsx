@@ -2,7 +2,7 @@ import Login from '@app/components/Login/Login';
 
 export function LoginPage() {
   return (
-    <div className="flex items-center justify-center flex-grow mt-16">
+    <div className="mt-16 flex flex-grow items-center justify-center">
       <Login />
     </div>
   );
