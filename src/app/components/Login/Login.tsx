@@ -15,7 +15,10 @@ const formSchema = z.object({
 });
 
 function Login() {
-  const { signInMutation, signInError } = useAuth();
+  const {
+    signInMutation,
+    // signInError
+  } = useAuth();
 
   // TODO: display error message
 

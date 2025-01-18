@@ -26,7 +26,10 @@ const formSchema = z
   });
 
 function SignUp() {
-  const { signUpMutation, signUpError } = useAuth();
+  const {
+    signUpMutation,
+    // signUpError
+  } = useAuth();
 
   // TODO: display error message
 

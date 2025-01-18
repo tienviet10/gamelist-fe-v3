@@ -117,12 +117,12 @@ export default function useAllGames(limitParam = 20, sortBy?: GameFiltersSortTyp
 
       return lastElement(lastPage.data.data.games) || undefined;
     },
-    queryFn: async ({ pageParam }) => {
+    queryFn: async ({ pageParam }: { pageParam: Game | undefined }) => {
       const res = await client.post('/game-service/games', {
         genres: genres.included,
         tags: tags.included,
         platforms: platforms.included,
-        year,
+        year: undefined,
         excludedGenres: genres.excluded,
         excludedTags: tags.excluded,
         excludedPlatforms: platforms.excluded,
@@ -146,8 +146,6 @@ export default function useAllGames(limitParam = 20, sortBy?: GameFiltersSortTyp
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
-
-  console.log('data.....', data);
 
   // const { data, status, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery({
   //   queryKey,
