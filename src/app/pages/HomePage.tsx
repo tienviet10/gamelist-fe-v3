@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import ContentWrapper from '@app/components/ContentWrapper/ContentWrapper';
 import InView from '@app/components/IntersectionObserverView/IntersectionObserverView';
 import useAllGames from '@app/services/game/useAllGames';
@@ -5,6 +7,12 @@ import { Card } from '@lib/Card/Card';
 
 function HomePage() {
   const { data, fetchNextPage } = useAllGames();
+
+  const fetchNext = useCallback(() => {
+    if (!fetchNextPage) return;
+
+    fetchNextPage();
+  }, [fetchNextPage]);
 
   return (
     <ContentWrapper>
@@ -18,7 +26,7 @@ function HomePage() {
           ))}
         </div>
       ))}
-      <InView onChange={fetchNextPage} />
+      <InView onChange={fetchNext} />
     </ContentWrapper>
   );
 }

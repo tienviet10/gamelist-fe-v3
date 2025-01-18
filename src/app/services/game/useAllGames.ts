@@ -1,5 +1,3 @@
-// TODO: should not use useAppSelector or any sideEffect in this hook. Those value can be pass in as props. Make this hook general for just calling the endpoint
-
 import client from '@app/utils/authApi';
 import {
   FetchNextPageOptions,
@@ -8,41 +6,22 @@ import {
   useInfiniteQuery,
 } from '@tanstack/react-query';
 
-import { CustomAxiosResponse, ErrorResponse, Game, GameFiltersSortType } from '@app/constants/global/types';
+import { CustomAxiosResponse, ErrorResponse, Game, GameFiltersSortType, Games } from '@app/constants/global/types';
+import { REACT_QUERY_STATUS } from '@app/constants/global/urls';
 
-type GamesResponse = {
-  games: Game[];
-};
+type CustomGamesResponse = CustomAxiosResponse<Games>;
 
-type GamesResponseWithLastEntry = CustomAxiosResponse<GamesResponse> & {
-  lastEntry: Game | undefined;
-};
-
-type BaseGetGamesHook =
-  | {
-      status: 'loading';
-      error: null;
-      data: null;
-    }
-  | {
-      status: 'success';
-      error: null;
-      data: InfiniteData<GamesResponseWithLastEntry>;
-      fetchNextPage: (
-        options?: FetchNextPageOptions | undefined
-      ) => Promise<InfiniteQueryObserverResult<GamesResponseWithLastEntry, ErrorResponse>>;
-    }
-  | {
-      status: 'error';
-      error: ErrorResponse;
-      data: null;
-    };
-
-type GetGamesHookResult = BaseGetGamesHook & {
-  hasNextPage: boolean | undefined;
-  isFetching: boolean;
-  isFetchingNextPage: boolean;
-  fetchNextPage: () => Promise<InfiniteQueryObserverResult<GamesResponseWithLastEntry, ErrorResponse>>;
+type Keys = keyof typeof REACT_QUERY_STATUS;
+type BaseGetGamesHook = {
+  status: (typeof REACT_QUERY_STATUS)[Keys];
+  error: null | ErrorResponse;
+  data: undefined | InfiniteData<CustomGamesResponse>;
+  fetchNextPage?: (
+    options?: FetchNextPageOptions | undefined
+  ) => Promise<InfiniteQueryObserverResult<InfiniteData<CustomGamesResponse>, ErrorResponse>>;
+  hasNextPage?: boolean;
+  isFetching?: boolean;
+  isFetchingNextPage?: boolean;
 };
 
 const {
@@ -76,7 +55,7 @@ function lastElement(arr: Game[]) {
   return arr[arr.length - 1];
 }
 
-export default function useAllGames(limitParam = 20, sortBy?: GameFiltersSortType): GetGamesHookResult {
+export default function useAllGames(limitParam = 20, sortBy?: GameFiltersSortType): BaseGetGamesHook {
   // const {
   //   genres,
   //   tags,
@@ -86,10 +65,8 @@ export default function useAllGames(limitParam = 20, sortBy?: GameFiltersSortTyp
   //   year,
   // } = useAppSelector((state) => state.homeGameFilters);
 
-  // // Get sortBy value from params if it exists, otherwise get it from the store
+  // Get sortBy value from params if it exists, otherwise get it from the store
   const sortByValue = sortBy || sortByFromStore;
-
-  // const queryKey = ['Games', [], [], [], undefined, undefined, [], [], undefined, [], 20];
 
   const queryKey = [
     'Games',
@@ -106,8 +83,11 @@ export default function useAllGames(limitParam = 20, sortBy?: GameFiltersSortTyp
   ];
 
   const { data, status, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery<
-    GamesResponseWithLastEntry,
-    ErrorResponse
+    CustomGamesResponse,
+    ErrorResponse,
+    InfiniteData<CustomGamesResponse>,
+    typeof queryKey,
+    Game | null
   >({
     queryKey,
     getNextPageParam: (lastPage) => {
@@ -117,7 +97,8 @@ export default function useAllGames(limitParam = 20, sortBy?: GameFiltersSortTyp
 
       return lastElement(lastPage.data.data.games) || undefined;
     },
-    queryFn: async ({ pageParam }: { pageParam: Game | undefined }) => {
+    initialPageParam: null,
+    queryFn: async ({ pageParam }) => {
       const res = await client.post('/game-service/games', {
         genres: genres.included,
         tags: tags.included,
@@ -147,39 +128,9 @@ export default function useAllGames(limitParam = 20, sortBy?: GameFiltersSortTyp
     refetchOnWindowFocus: false,
   });
 
-  // const { data, status, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery({
-  //   queryKey,
-  //   queryFn: ({ pageParam }) => fetchPage(pageParam),
-  //   initialPageParam: 1,
-  //   getNextPageParam: (lastPage, allPages, lastPageParam, allPageParams) => lastPage.nextCursor,
-  //   getPreviousPageParam: (firstPage, allPages, firstPageParam, allPageParams) => firstPage.prevCursor,
-  // });
-
-  // if (status === 'loading') {
-  //   return {
-  //     status: 'loading',
-  //     error: null,
-  //     data: null,
-  //     hasNextPage,
-  //     isFetching,
-  //     isFetchingNextPage,
-  //   };
-  // }
-
-  if (status === 'error') {
-    return {
-      status: 'error',
-      error,
-      data: null,
-      hasNextPage,
-      isFetching,
-      isFetchingNextPage,
-    };
-  }
-
   return {
-    status: 'success',
-    error: null,
+    status,
+    error,
     data,
     hasNextPage,
     isFetching,

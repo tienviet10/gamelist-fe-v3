@@ -140,3 +140,7 @@ export type PostsAndStatusUpdatesResponse = {
 export type SharedSortType = 'name' | 'avg_score' | 'newest_releases' | 'oldest_releases';
 
 export type GameFiltersSortType = SharedSortType | 'total_rating';
+
+export type Games = {
+  games: Game[];
+};

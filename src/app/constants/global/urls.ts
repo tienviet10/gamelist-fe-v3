@@ -21,3 +21,9 @@ export const addFollowRoute = `${userRoute}/${apiV1}/user/follows`;
 export const removeFollowRoute = `${userRoute}/${apiV1}/user/unfollow`;
 export const removeFollowerRoute = `${userRoute}/${apiV1}/user/remove-follower`;
 export const getAllFollowRoute = `${userRoute}/${apiV1}/user/all-follow`;
+
+export const REACT_QUERY_STATUS = Object.freeze({
+  PENDING: 'pending',
+  ERROR: 'error',
+  SUCCESS: 'success',
+});
