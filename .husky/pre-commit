@@ -1,1 +1,1 @@
-npm run lint
+npm run lint && nx lint gamelist-ui
