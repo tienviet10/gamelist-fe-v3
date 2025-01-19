@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@lib/Button/Button';
 
+import LoginLogoutButton from '../LoginLogoutButton/LoginLogoutButton';
 import MobileNav from '../MobileNav/MobileNav';
 
 export default function TopNav() {
@@ -52,6 +53,17 @@ export default function TopNav() {
                 </Button>
               </li>
               <li>
+                <Button
+                  className="text-white"
+                  onClick={() => {
+                    navigate('/userProfile');
+                  }}
+                  variant="ghost"
+                >
+                  Profile
+                </Button>
+              </li>
+              <li>
                 <Button className="text-white" variant="ghost">
                   Game List
                 </Button>
@@ -63,25 +75,7 @@ export default function TopNav() {
               </li>
             </ul>
           </nav>
-          <div className="flex space-x-2">
-            <Button
-              className="text-white"
-              onClick={() => {
-                navigate('/login');
-              }}
-              variant="ghost"
-            >
-              Login
-            </Button>
-            <Button
-              className="bg-blue-500 text-white hover:bg-blue-600"
-              onClick={() => {
-                navigate('/signup');
-              }}
-            >
-              Sign up
-            </Button>
-          </div>
+          <LoginLogoutButton />
         </div>
       </header>
 

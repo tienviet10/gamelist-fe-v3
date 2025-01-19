@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { z } from 'zod';
 
 import { useAuth } from '@app/services/authentication/useAuth';
@@ -43,13 +44,16 @@ function Login() {
     navigate('/userProfile');
   }, [dispatch, navigate, signInResponse]);
 
+  useEffect(() => {
+    toast.error(signInError?.response?.data?.details || signInError?.message);
+  }, [signInError]);
+
   return (
     <div className="flex max-w-96 flex-col items-center rounded-md bg-background p-10">
       <Form {...form}>
         <div className="text-6 mb-16 mt-5 font-semibold">
           <p>Login</p>
         </div>
-        {signInError && <div>{signInError.response?.data?.details || signInError.message}</div>}
         <form className="flex max-w-80 flex-col items-center space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
           {/* Email */}
           <FormField
