@@ -82,7 +82,7 @@ export default function useAllGames(limitParam = 20, sortVal?: HomeGameFilters):
         genres: sortVal?.genres.included,
         tags: sortVal?.tags.included,
         platforms: sortVal?.platforms.included,
-        year: undefined,
+        year: sortVal?.year,
         excludedGenres: sortVal?.genres.excluded,
         excludedTags: sortVal?.tags.excluded,
         excludedPlatforms: sortVal?.platforms.excluded,

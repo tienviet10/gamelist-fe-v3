@@ -1,6 +1,6 @@
 import ContentWrapper from '@app/components/ContentWrapper/ContentWrapper';
 import InView from '@app/components/IntersectionObserverView/IntersectionObserverView';
-import useGetAllGamesWithFilter from '@app/pages/HomePage/useGetAllGamesWithFilter';
+import useGetAllGamesWithFilter from '@app/pages/Home/useGetAllGamesWithFilter';
 import { Card } from '@lib/Card/Card';
 
 function HomePage() {

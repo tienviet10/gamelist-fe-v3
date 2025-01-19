@@ -7,8 +7,7 @@ interface ProtectedRouteProps {
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps): ReactElement {
   const location = useLocation();
-  // const isAuthenticated = localStorage.getItem('token') !== null;
-  const isAuthenticated = false;
+  const isAuthenticated = localStorage.getItem('token') !== null;
 
   if (!isAuthenticated) {
     return <Navigate replace state={{ from: location }} to="/login" />;

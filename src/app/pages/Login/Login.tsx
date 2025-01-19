@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import { useAuth } from '@app/services/authentication/useAuth';
@@ -15,8 +15,11 @@ const formSchema = z.object({
 });
 
 function Login() {
+  const navigate = useNavigate();
+
   const {
     signInMutation,
+    signInResponse,
     // signInError
   } = useAuth();
 
@@ -33,6 +36,15 @@ function Login() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     signInMutation(values);
   }
+
+  useEffect(() => {
+    if (!signInResponse?.data?.data?.token) return;
+
+    localStorage.setItem('token', signInResponse?.data.data.token);
+
+    // dispatch(setUser(signInResponse?.data.data.user));
+    navigate('/userProfile');
+  }, [navigate, signInResponse]);
 
   return (
     <div className="flex max-w-96 flex-col items-center rounded-md bg-background p-10">
