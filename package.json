@@ -51,7 +51,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "nx lint"
+      "pre-commit": "npm nx lint"
     }
   },
   "devDependencies": {
