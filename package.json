@@ -7,7 +7,8 @@
     "build": "nx build",
     "test": "nx test",
     "lint": "nx lint",
-    "lint:fix": "nx lint --fix"
+    "lint:fix": "nx lint --fix",
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
