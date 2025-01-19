@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
@@ -19,12 +19,7 @@ const formSchema = z.object({
 function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const {
-    signInMutation,
-    signInResponse,
-    // signInError
-  } = useAuth();
+  const { signInMutation, signInResponse, signInError } = useAuth();
 
   // TODO: display error message
 
@@ -54,6 +49,7 @@ function Login() {
         <div className="text-6 mb-16 mt-5 font-semibold">
           <p>Login</p>
         </div>
+        {signInError && <div>{signInError.response?.data?.details || signInError.message}</div>}
         <form className="flex max-w-80 flex-col items-center space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
           {/* Email */}
           <FormField
