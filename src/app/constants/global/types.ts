@@ -144,3 +144,21 @@ export type GameFiltersSortType = SharedSortType | 'total_rating';
 export type Games = {
   games: Game[];
 };
+
+export type HomeGameFilters = {
+  search: string | undefined;
+  genres: {
+    included: string[];
+    excluded: string[];
+  };
+  platforms: {
+    included: string[];
+    excluded: string[];
+  };
+  tags: {
+    included: string[];
+    excluded: string[];
+  };
+  year: number | undefined;
+  sortBy: GameFiltersSortType | undefined;
+};

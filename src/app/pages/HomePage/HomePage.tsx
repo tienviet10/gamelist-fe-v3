@@ -1,18 +1,10 @@
-import { useCallback } from 'react';
-
 import ContentWrapper from '@app/components/ContentWrapper/ContentWrapper';
 import InView from '@app/components/IntersectionObserverView/IntersectionObserverView';
-import useAllGames from '@app/services/game/useAllGames';
+import useGetAllGamesWithFilter from '@app/pages/HomePage/useGetAllGamesWithFilter';
 import { Card } from '@lib/Card/Card';
 
 function HomePage() {
-  const { data, fetchNextPage } = useAllGames();
-
-  const fetchNext = useCallback(() => {
-    if (!fetchNextPage) return;
-
-    fetchNextPage();
-  }, [fetchNextPage]);
+  const { data, fetchNext } = useGetAllGamesWithFilter();
 
   return (
     <ContentWrapper>

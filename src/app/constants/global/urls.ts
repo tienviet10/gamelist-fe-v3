@@ -27,3 +27,5 @@ export const REACT_QUERY_STATUS = Object.freeze({
   ERROR: 'error',
   SUCCESS: 'success',
 });
+
+export const DEFAULT_SIZE_PER_PAGE = 20;
