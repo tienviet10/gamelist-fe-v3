@@ -1,7 +1,7 @@
 import client from '@app/utils/authApi';
 import { useQuery } from '@tanstack/react-query';
 
-import { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
+import type { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
 import { gameFiltersRoute } from '@app/constants/global/urls';
 
 const nullGenresPlatformsTagsFurthestYear = {

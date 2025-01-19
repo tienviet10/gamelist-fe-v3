@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import { useAuth } from '@app/services/authentication/useAuth';
+import { useAppDispatch } from '@app/store/hooks';
+import { setUser } from '@app/store/userSlice';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@lib/Button/Button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@lib/Form/Form';
@@ -16,6 +18,7 @@ const formSchema = z.object({
 
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const {
     signInMutation,
@@ -40,11 +43,10 @@ function Login() {
   useEffect(() => {
     if (!signInResponse?.data?.data?.token) return;
 
-    localStorage.setItem('token', signInResponse?.data.data.token);
-
-    // dispatch(setUser(signInResponse?.data.data.user));
+    localStorage.setItem('token', signInResponse.data.data.token);
+    dispatch(setUser(signInResponse.data.data.user));
     navigate('/userProfile');
-  }, [navigate, signInResponse]);
+  }, [dispatch, navigate, signInResponse]);
 
   return (
     <div className="flex max-w-96 flex-col items-center rounded-md bg-background p-10">

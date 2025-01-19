@@ -162,3 +162,20 @@ export type HomeGameFilters = {
   year: number | undefined;
   sortBy: GameFiltersSortType | undefined;
 };
+
+export type InitialStateType = {
+  loading: boolean;
+  user: UserData;
+};
+
+export type UserInfo = {
+  id: string;
+  username: string;
+  bannerPicture: string;
+  createdAt: string;
+  games: string[];
+  isActive: boolean;
+  userGames: string[];
+  userPicture: string;
+  __typename: string;
+};

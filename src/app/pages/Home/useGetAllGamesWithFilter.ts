@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
-import { HomeGameFilters } from '@app/constants/global/types';
-import { DEFAULT_SIZE_PER_PAGE } from '@app/constants/global/urls';
+import { DEFAULT_SIZE_PER_PAGE } from '@app/constants/global/constants';
+import type { HomeGameFilters } from '@app/constants/global/types';
 import useAllGames from '@app/services/game/useAllGames';
 
 // TODO: This is just a placeholder. Import the sortVal from redux

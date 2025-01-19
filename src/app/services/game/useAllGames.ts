@@ -8,8 +8,8 @@ import {
   useInfiniteQuery,
 } from '@tanstack/react-query';
 
-import { CustomAxiosResponse, ErrorResponse, Game, Games, HomeGameFilters } from '@app/constants/global/types';
-import { REACT_QUERY_STATUS } from '@app/constants/global/urls';
+import { REACT_QUERY_STATUS } from '@app/constants/global/constants';
+import type { CustomAxiosResponse, ErrorResponse, Game, Games, HomeGameFilters } from '@app/constants/global/types';
 
 type CustomGamesResponse = CustomAxiosResponse<Games>;
 
