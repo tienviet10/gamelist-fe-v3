@@ -18,7 +18,7 @@ const useGetUserGames = () => {
 
   const {
     data: userGames,
-    isInitialLoading: userDataIsLoading,
+    isLoading: userDataIsLoading,
     refetch: getUserGames,
   } = useQuery<CustomAxiosResponse<UserGamesType>, ErrorResponse>({
     queryKey: ['userGames'],

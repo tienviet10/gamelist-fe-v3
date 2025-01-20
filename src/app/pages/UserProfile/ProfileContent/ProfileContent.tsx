@@ -7,7 +7,7 @@ import {
 } from '@app/constants/global/urls';
 
 import Favorites from './Favorites/Favorites';
-import OverView from './Overview/OverView';
+import Overview from './Overview/Overview';
 import Reviews from './Reviews/Reviews';
 import Social from './Social/Social';
 import UserGameList from './UserGameList/UserGameList';
@@ -21,7 +21,7 @@ function ProfileContent({ routeName }: { routeName: string }) {
         {(() => {
           switch (routeName) {
             case overviewRoute:
-              return <OverView />;
+              return <Overview />;
             case favoriteUserProfileRoute:
               return <Favorites />;
             case reviewsUserProfileRoute:
@@ -31,7 +31,7 @@ function ProfileContent({ routeName }: { routeName: string }) {
             case gameListUserProfileRoute:
               return <UserGameList />;
             default:
-              return <OverView />;
+              return <Overview />;
           }
         })()}
       </div>

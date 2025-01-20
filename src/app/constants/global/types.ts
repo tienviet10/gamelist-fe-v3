@@ -129,13 +129,11 @@ export type PostsAndStatusUpdatesData = {
   lastPostOrStatusUpdateId: number;
 };
 
-export type PostsAndStatusUpdatesResponse = {
-  data: { postsAndStatusUpdates: PostsAndStatusUpdatesData };
-  message: string;
-  status: string;
-  statusCode: number;
-  timestamp: string;
+export type CustomPostStatusResponseType = {
+  postsAndStatusUpdates: PostsAndStatusUpdatesData;
 };
+
+export type PostStatusResponseType = CustomAxiosResponse<CustomPostStatusResponseType>;
 
 export type SharedSortType = 'name' | 'avg_score' | 'newest_releases' | 'oldest_releases';
 
