@@ -1,13 +1,13 @@
 import ContentWrapper from '@app/components/ContentWrapper/ContentWrapper';
 
-import UserBanner from './UserBanner/UserBanner';
-import UserLinks from './UserLinks/UserLinks';
+import ProfileContent from './ProfileContent/ProfileContent';
+import UserProfileHeader from './UserLinks/UserProfileHeader';
 
-export default function UserProfile() {
+export default function UserProfile({ routeName }: { routeName: string }) {
   return (
     <ContentWrapper>
-      <UserBanner />
-      <UserLinks />
+      <UserProfileHeader />
+      <ProfileContent routeName={routeName} />
     </ContentWrapper>
   );
 }

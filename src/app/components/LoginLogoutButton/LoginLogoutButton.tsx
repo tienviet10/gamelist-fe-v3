@@ -17,8 +17,6 @@ function LoginLogoutButton() {
     navigate('/login');
   }, [dispatch, navigate]);
 
-  if (userState?.loading) return;
-
   return (
     <div className="flex space-x-2">
       {userState.user?.email ? (

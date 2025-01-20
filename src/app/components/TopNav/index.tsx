@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-import { overviewRoute } from '@app/constants/global/urls';
 import { Button } from '@lib/Button/Button';
 
 import LoginLogoutButton from '../LoginLogoutButton/LoginLogoutButton';
 import MobileNav from '../MobileNav/MobileNav';
+
+import ProfileButton from './ProfileButton';
 
 export default function TopNav() {
   const [topValue, setTopValue] = useState(0);
@@ -53,17 +54,7 @@ export default function TopNav() {
                   Home
                 </Button>
               </li>
-              <li>
-                <Button
-                  className="text-white"
-                  onClick={() => {
-                    navigate(overviewRoute);
-                  }}
-                  variant="ghost"
-                >
-                  Profile
-                </Button>
-              </li>
+              <ProfileButton />
               <li>
                 <Button className="text-white" variant="ghost">
                   Game List

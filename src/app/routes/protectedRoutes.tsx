@@ -18,11 +18,11 @@ export const protectedRoutes: RouteObject[] = [
     path: `${userProfileRoute}`,
     element: <ProtectedRoute />,
     children: [
-      { path: overviewRoute, element: <UserProfile /> },
-      { path: favoriteUserProfileRoute, element: <UserProfile /> },
-      { path: gameListUserProfileRoute, element: <UserProfile /> },
-      { path: reviewsUserProfileRoute, element: <UserProfile /> },
-      { path: socialUserProfileRoute, element: <UserProfile /> },
+      { path: overviewRoute, element: <UserProfile routeName={overviewRoute} /> },
+      { path: favoriteUserProfileRoute, element: <UserProfile routeName={favoriteUserProfileRoute} /> },
+      { path: gameListUserProfileRoute, element: <UserProfile routeName={gameListUserProfileRoute} /> },
+      { path: reviewsUserProfileRoute, element: <UserProfile routeName={reviewsUserProfileRoute} /> },
+      { path: socialUserProfileRoute, element: <UserProfile routeName={socialUserProfileRoute} /> },
     ],
   },
 ];

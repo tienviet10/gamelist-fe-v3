@@ -7,6 +7,7 @@ import router from '@app/routes';
 import AuthWrapper from './AuthWrapper';
 
 import 'react-toastify/dist/ReactToastify.css';
+import './app.module.scss';
 
 export function App() {
   return (

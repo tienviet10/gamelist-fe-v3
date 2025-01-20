@@ -28,7 +28,7 @@ function AuthWrapper({ children }: { children: React.ReactNode }) {
     }
   }, [dispatch, userDataIsLoading, userInfo]);
 
-  if (!userInfo?.data?.data?.email) return;
+  // if (!userInfo?.data?.data?.email) return <>Hi</>;
 
   return <div>{children}</div>;
 }
