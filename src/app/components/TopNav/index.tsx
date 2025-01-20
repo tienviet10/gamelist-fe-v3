@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+import { overviewRoute } from '@app/constants/global/urls';
 import { Button } from '@lib/Button/Button';
 
 import LoginLogoutButton from '../LoginLogoutButton/LoginLogoutButton';
@@ -56,7 +57,7 @@ export default function TopNav() {
                 <Button
                   className="text-white"
                   onClick={() => {
-                    navigate('/userProfile');
+                    navigate(overviewRoute);
                   }}
                   variant="ghost"
                 >

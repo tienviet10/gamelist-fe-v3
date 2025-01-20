@@ -4,13 +4,17 @@ import ContextWrapper from 'src/ContextWrapper';
 
 import router from '@app/routes';
 
+import AuthWrapper from './AuthWrapper';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 export function App() {
   return (
     <ContextWrapper>
       <ToastContainer />
-      <RouterProvider router={router} />
+      <AuthWrapper>
+        <RouterProvider router={router} />
+      </AuthWrapper>
     </ContextWrapper>
   );
 }

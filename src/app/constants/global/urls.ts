@@ -21,3 +21,11 @@ export const addFollowRoute = `${userRoute}/${apiV1}/user/follows`;
 export const removeFollowRoute = `${userRoute}/${apiV1}/user/unfollow`;
 export const removeFollowerRoute = `${userRoute}/${apiV1}/user/remove-follower`;
 export const getAllFollowRoute = `${userRoute}/${apiV1}/user/all-follow`;
+
+// FE routes
+export const userProfileRoute = '/userProfile';
+export const overviewRoute = `${userProfileRoute}/overview`;
+export const favoriteUserProfileRoute = `${userProfileRoute}/favorites`;
+export const gameListUserProfileRoute = `${userProfileRoute}/game-list`;
+export const socialUserProfileRoute = `${userProfileRoute}/forum`;
+export const reviewsUserProfileRoute = `${userProfileRoute}/reviews`;

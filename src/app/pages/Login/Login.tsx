@@ -41,7 +41,7 @@ function Login() {
 
     localStorage.setItem('token', signInResponse.data.data.token);
     dispatch(setUser(signInResponse.data.data.user));
-    navigate('/userProfile');
+    navigate('/userProfile/overview');
   }, [dispatch, navigate, signInResponse]);
 
   useEffect(() => {

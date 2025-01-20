@@ -24,9 +24,13 @@ function AuthWrapper({ children }: { children: React.ReactNode }) {
     if (userDataIsLoading) return;
 
     if (userInfo?.data?.data?.email) {
+      console.log('hereeeee');
       dispatch(setUser(userInfo?.data?.data));
     }
   }, [dispatch, userDataIsLoading, userInfo]);
+  console.log('first....');
+
+  if (!userInfo?.data?.data?.email) return;
 
   return <div>{children}</div>;
 }
