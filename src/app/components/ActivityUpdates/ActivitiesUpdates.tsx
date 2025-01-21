@@ -41,7 +41,9 @@ function ActivitiesUpdates() {
   return (
     <div className={styles.activitiesUpdatesContainer}>
       {socials.length > 0 &&
-        socials.map((activity) => <ActivityCard activity={activity} username={userState?.user?.username} />)}
+        socials.map((activity) => (
+          <ActivityCard activity={activity} key={activity?.id} username={userState?.user?.username} />
+        ))}
       {isFetchingNextPage ? 'Loading more activities...' : null}
       <InView
         as="div"

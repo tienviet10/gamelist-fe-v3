@@ -177,3 +177,7 @@ export type UserInfo = {
   userPicture: string;
   __typename: string;
 };
+
+export type UserGamesType = {
+  userGamesByStatus: UserGamesByStatus;
+};
