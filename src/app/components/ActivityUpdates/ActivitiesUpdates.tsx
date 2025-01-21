@@ -19,7 +19,7 @@ function ActivitiesUpdates() {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-    getPostsAndStatusUpdates,
+    // getPostsAndStatusUpdates,
     postsAndStatusUpdates,
   } = usePostsAndStatusUpdates();
 

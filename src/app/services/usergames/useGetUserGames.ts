@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import client from '@app/utils/authApi';
 import { useQuery } from '@tanstack/react-query';
 
-import type { CustomAxiosResponse, ErrorResponse, UserGamesByStatus, UserGamesType } from '@app/constants/global/types';
+import type { CustomAxiosResponse, ErrorResponse, UserGamesType } from '@app/constants/global/types';
 import { getUserGamesByStatus } from '@app/constants/global/urls';
 
 const useGetUserGames = () => {

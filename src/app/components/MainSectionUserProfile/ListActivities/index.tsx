@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import MemoizedPostInput from '@app/components/PostInput';
 
 import ActivitiesUpdates from '../../ActivityUpdates/ActivitiesUpdates';

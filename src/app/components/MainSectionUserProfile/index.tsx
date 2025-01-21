@@ -1,7 +1,3 @@
-import React from 'react';
-
-import type { UserGamesByStatus } from '@app/constants/global/types';
-
 import ListActivities from './ListActivities';
 import ListStatistic from './ListStatistic';
 
