@@ -8,8 +8,14 @@ import {
   useInfiniteQuery,
 } from '@tanstack/react-query';
 
-import { REACT_QUERY_STATUS } from '@app/constants/global/constants';
-import type { CustomAxiosResponse, ErrorResponse, Game, Games, HomeGameFilters } from '@app/constants/global/types';
+import { DEFAULT_SORT_VALUES, REACT_QUERY_STATUS } from '@app/constants/global/constants';
+import type {
+  CustomAxiosResponse,
+  ErrorResponse,
+  Game,
+  Games,
+  OptionalHomeGameFilters,
+} from '@app/constants/global/types';
 
 type CustomGamesResponse = CustomAxiosResponse<Games>;
 
@@ -32,31 +38,31 @@ function lastElement(arr: Game[]) {
   return arr[arr.length - 1];
 }
 
-export default function useAllGames(limitParam = 20, sortVal?: HomeGameFilters): BaseGetGamesHook {
+export default function useAllGames(limitParam = 20, sortVal?: OptionalHomeGameFilters): BaseGetGamesHook {
   const queryKey = useMemo(
     () => [
       'Games',
-      sortVal?.genres.included,
-      sortVal?.tags.included,
-      sortVal?.platforms.included,
-      sortVal?.year,
-      sortVal?.search,
-      sortVal?.genres.excluded,
-      sortVal?.tags.excluded,
-      sortVal?.sortBy,
-      sortVal?.platforms.excluded,
+      sortVal?.genres?.included || DEFAULT_SORT_VALUES.genres.included,
+      sortVal?.tags?.included || DEFAULT_SORT_VALUES.tags.included,
+      sortVal?.platforms?.included || DEFAULT_SORT_VALUES.platforms.included,
+      sortVal?.year || DEFAULT_SORT_VALUES.year,
+      sortVal?.search || DEFAULT_SORT_VALUES.search,
+      sortVal?.genres?.excluded || DEFAULT_SORT_VALUES.genres.excluded,
+      sortVal?.tags?.excluded || DEFAULT_SORT_VALUES.tags.excluded,
+      sortVal?.sortBy || DEFAULT_SORT_VALUES.sortBy,
+      sortVal?.platforms?.excluded || DEFAULT_SORT_VALUES.platforms.excluded,
       limitParam,
     ],
     [
       limitParam,
-      sortVal?.genres.excluded,
-      sortVal?.genres.included,
-      sortVal?.platforms.excluded,
-      sortVal?.platforms.included,
+      sortVal?.genres?.excluded,
+      sortVal?.genres?.included,
+      sortVal?.platforms?.excluded,
+      sortVal?.platforms?.included,
       sortVal?.search,
       sortVal?.sortBy,
-      sortVal?.tags.excluded,
-      sortVal?.tags.included,
+      sortVal?.tags?.excluded,
+      sortVal?.tags?.included,
       sortVal?.year,
     ]
   );
@@ -79,13 +85,13 @@ export default function useAllGames(limitParam = 20, sortVal?: HomeGameFilters):
     initialPageParam: null,
     queryFn: async ({ pageParam }) => {
       const res = await client.post('/game-service/games', {
-        genres: sortVal?.genres.included,
-        tags: sortVal?.tags.included,
-        platforms: sortVal?.platforms.included,
+        genres: sortVal?.genres?.included,
+        tags: sortVal?.tags?.included,
+        platforms: sortVal?.platforms?.included,
         year: sortVal?.year,
-        excludedGenres: sortVal?.genres.excluded,
-        excludedTags: sortVal?.tags.excluded,
-        excludedPlatforms: sortVal?.platforms.excluded,
+        excludedGenres: sortVal?.genres?.excluded,
+        excludedTags: sortVal?.tags?.excluded,
+        excludedPlatforms: sortVal?.platforms?.excluded,
         sortBy: sortVal?.sortBy,
         search: sortVal?.search,
         limit: limitParam,

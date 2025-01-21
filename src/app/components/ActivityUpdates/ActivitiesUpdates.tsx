@@ -2,15 +2,13 @@ import { InView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 
 import ActivityCard from '@app/components/ActivityUpdates/ActivityCard/ActivityCard';
-import getSortedSocialData, {
-  PostsAndStatusUpdatesType,
-} from '@app/components/MainSectionUserProfile/ListActivities/getSortedSocialData';
+import getSortedSocialData, { PostsAndStatusUpdatesType } from '@app/components/ListActivities/getSortedSocialData';
 import usePostsAndStatusUpdates from '@app/services/InteractiveEntity/usePostsAndStatusUpdates';
 import { useAppSelector } from '@app/store/hooks';
 
 import styles from '@app/components/ActivityUpdates/ActivitiesUpdates.module.scss';
 
-function ActivitiesUpdates() {
+function ActivitiesUpdates({ postType = '' }: { postType?: string }) {
   // const [socials, setSocials] = useState<(PostsDTOResponse | StatusUpdatesDTOResponse)[]>([]);
   const userState = useAppSelector((state) => state.user);
 
@@ -21,7 +19,7 @@ function ActivitiesUpdates() {
     isFetchingNextPage,
     // getPostsAndStatusUpdates,
     postsAndStatusUpdates,
-  } = usePostsAndStatusUpdates();
+  } = usePostsAndStatusUpdates(postType);
 
   // const queryClient = useQueryClient();
   // const data = queryClient.getQueryData(['postsAndStatusUpdates']);

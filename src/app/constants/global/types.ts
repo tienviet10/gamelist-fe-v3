@@ -161,6 +161,8 @@ export type HomeGameFilters = {
   sortBy: GameFiltersSortType | undefined;
 };
 
+export type OptionalHomeGameFilters = Partial<HomeGameFilters>;
+
 export type InitialStateType = {
   loading: boolean;
   user: UserData;

@@ -1,6 +1,6 @@
 import MemoizedPostInput from '@app/components/PostInput';
 
-import ActivitiesUpdates from '../../ActivityUpdates/ActivitiesUpdates';
+import ActivitiesUpdates from '../ActivityUpdates/ActivitiesUpdates';
 
 import styles from './ListActivities.module.scss';
 
@@ -19,7 +19,7 @@ const items = [
   },
 ];
 
-function ListActivities() {
+function ListActivities({ postType = '' }: { postType?: string }) {
   return (
     <div className={styles.listActivitiesContainer}>
       <h2 className={styles.title}>
@@ -39,7 +39,7 @@ function ListActivities() {
         </select>
       </h2>
       <MemoizedPostInput />
-      <ActivitiesUpdates />
+      <ActivitiesUpdates postType={postType} />
     </div>
   );
 }

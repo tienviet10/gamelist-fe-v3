@@ -8,6 +8,7 @@ import {
   socialUserProfileRoute,
   userProfileRoute,
 } from '@app/constants/global/urls';
+import Forum from '@app/pages/Social';
 
 import UserProfile from '../pages/UserProfile/UserProfile';
 
@@ -23,6 +24,16 @@ export const protectedRoutes: RouteObject[] = [
       { path: gameListUserProfileRoute, element: <UserProfile routeName={gameListUserProfileRoute} /> },
       { path: reviewsUserProfileRoute, element: <UserProfile routeName={reviewsUserProfileRoute} /> },
       { path: socialUserProfileRoute, element: <UserProfile routeName={socialUserProfileRoute} /> },
+    ],
+  },
+  {
+    path: '/social',
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: '/social',
+        element: <Forum />,
+      },
     ],
   },
 ];

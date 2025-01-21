@@ -1,4 +1,5 @@
-import ListActivities from './ListActivities';
+import ListActivities from '../ListActivities';
+
 import ListStatistic from './ListStatistic';
 
 function MainSection() {

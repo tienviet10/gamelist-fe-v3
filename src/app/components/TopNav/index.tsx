@@ -61,7 +61,7 @@ export default function TopNav() {
                 </Button>
               </li>
               <li>
-                <Button className="text-white" variant="ghost">
+                <Button className="text-white" onClick={() => navigate('/social')} variant="ghost">
                   Social
                 </Button>
               </li>

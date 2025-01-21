@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import getTimeElapsed from '@app/components/MainSectionUserProfile/ListActivities/getTimeElapsed';
+import getTimeElapsed from '@app/components/ListActivities/getTimeElapsed';
 import MemoizedPostInput from '@app/components/PostInput';
 import { PostsDTOResponse, StatusUpdatesDTOResponse } from '@app/constants/global/types';
 

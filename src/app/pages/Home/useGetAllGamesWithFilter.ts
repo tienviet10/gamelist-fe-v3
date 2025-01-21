@@ -1,30 +1,12 @@
 import { useCallback, useMemo } from 'react';
 
-import { DEFAULT_SIZE_PER_PAGE } from '@app/constants/global/constants';
-import type { HomeGameFilters } from '@app/constants/global/types';
+import { DEFAULT_SIZE_PER_PAGE, DEFAULT_SORT_VALUES } from '@app/constants/global/constants';
 import useAllGames from '@app/services/game/useAllGames';
 
 // TODO: This is just a placeholder. Import the sortVal from redux
-const sortVal: HomeGameFilters = {
-  genres: {
-    included: [],
-    excluded: [],
-  },
-  tags: {
-    included: [],
-    excluded: [],
-  },
-  platforms: {
-    included: [],
-    excluded: [],
-  },
-  search: '',
-  sortBy: 'name',
-  year: undefined,
-};
 
 const useGetAllGamesWithFilter = () => {
-  const { data, fetchNextPage } = useAllGames(DEFAULT_SIZE_PER_PAGE, sortVal);
+  const { data, fetchNextPage } = useAllGames(DEFAULT_SIZE_PER_PAGE, DEFAULT_SORT_VALUES);
 
   const fetchNext = useCallback(() => {
     if (!fetchNextPage) return;

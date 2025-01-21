@@ -1,3 +1,5 @@
+import { HomeGameFilters } from './types';
+
 export const REACT_QUERY_STATUS = Object.freeze({
   PENDING: 'pending',
   ERROR: 'error',
@@ -14,4 +16,22 @@ export const INITIAL_USER_STATE = {
     userPicture: '',
     email: '',
   },
+};
+
+export const DEFAULT_SORT_VALUES: HomeGameFilters = {
+  genres: {
+    included: [],
+    excluded: [],
+  },
+  tags: {
+    included: [],
+    excluded: [],
+  },
+  platforms: {
+    included: [],
+    excluded: [],
+  },
+  search: '',
+  sortBy: 'name',
+  year: undefined,
 };
