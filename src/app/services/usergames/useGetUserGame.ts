@@ -3,20 +3,8 @@ import { useCallback, useMemo } from 'react';
 import client from '@app/utils/authApi';
 import { useQuery } from '@tanstack/react-query';
 
-import type { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
+import type { CustomAxiosResponse, ErrorResponse, UserGamesByGameID } from '@app/constants/global/types';
 import { userGameRoute } from '@app/constants/global/urls';
-
-type UserGamesByGameID = {
-  id: number;
-  gameStatus: string;
-  startDate: string;
-  completedDate: string;
-  isPrivate: boolean;
-  rating: number;
-  gameNote: string;
-  createdAt: string;
-  updatedAt: string;
-};
 
 type UserGameType = {
   userGame: UserGamesByGameID;

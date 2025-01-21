@@ -1,4 +1,4 @@
-import { HomeGameFilters } from './types';
+import { HomeGameFilters, ListsOrderType } from './types';
 
 export const REACT_QUERY_STATUS = Object.freeze({
   PENDING: 'pending',
@@ -34,4 +34,19 @@ export const DEFAULT_SORT_VALUES: HomeGameFilters = {
   search: '',
   sortBy: 'name',
   year: undefined,
+};
+
+export const INITIAL_USER_GAME_BY_ID_STATE = {
+  completedDate: undefined,
+  gameNote: '',
+  gameStatus: '',
+  private: false,
+  rating: null,
+  startDate: undefined,
+  id: -1,
+};
+
+export const INITIAL_USER_GAME_LISTS = {
+  listOrder: ['planning', 'playing', 'paused', 'completed', 'dropped', 'justAdded'] as ListsOrderType[],
+  localListOrder: ['planning', 'playing', 'paused', 'completed', 'dropped', 'justAdded'] as ListsOrderType[],
 };

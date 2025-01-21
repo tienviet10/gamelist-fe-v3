@@ -183,3 +183,59 @@ export type UserInfo = {
 export type UserGamesType = {
   userGamesByStatus: UserGamesByStatus;
 };
+
+export type ListTypes = 'planning' | 'playing' | 'paused' | 'completed' | 'dropped' | 'justAdded';
+
+export type SelectedListTypes = ListTypes | 'all';
+
+export type UserGameFiltersSortType = SharedSortType | 'last_updated' | 'last_added' | 'start_date' | 'completed_date';
+
+export type UserGameFilters = {
+  selectedList: SelectedListTypes;
+  search: string | undefined;
+  genres: string | undefined;
+  platforms: string | undefined;
+  tags: string | undefined;
+  year: number | undefined;
+  sortBy: UserGameFiltersSortType | undefined;
+};
+
+export type RequiredGameWithIsAdded = RequiredGame & {
+  gameAdded?: boolean;
+  imageURL?: string;
+};
+
+export type ListsOrderType = keyof Omit<
+  UserGamesByStatus,
+  | 'totalCount'
+  | 'listsOrder'
+  | 'inactiveCount'
+  | 'droppedCount'
+  | 'pausedCount'
+  | 'completedCount'
+  | 'playingCount'
+  | 'planningCount'
+  | 'justAddedCount'
+>;
+
+export type EditUserGameParams = {
+  gameId: number;
+  gameStatus?: string | null;
+  gameNote?: string;
+  isPrivate?: boolean;
+  rating?: number | null;
+  completedDate?: string;
+  startDate?: string;
+};
+
+export type UserGamesByGameID = {
+  id: number;
+  gameStatus: string;
+  startDate: string;
+  completedDate: string;
+  isPrivate: boolean;
+  rating: number;
+  gameNote: string;
+  createdAt: string;
+  updatedAt: string;
+};
