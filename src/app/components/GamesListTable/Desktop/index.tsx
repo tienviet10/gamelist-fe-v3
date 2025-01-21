@@ -77,8 +77,33 @@ function UserGameListDesktop({ data }: UserGameListDataType) {
 
   return (
     <>
-      Hi
       {/* <Table className={styles.Table} columns={columns} dataSource={data} /> */}
+      <table>
+        <thead>
+          <tr>
+            <th> </th>
+            <th>Name</th>
+            <th>Score</th>
+            <th>Platform</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.id}>
+              <td>
+                <img alt="Game Avatar" src={item.imageURL} style={{ height: '80px' }} />
+              </td>
+              <td>{item.name}</td>
+              <td>{item.avgScore}</td>
+              <td>
+                {item.platforms.map((tag) => (
+                  <div key={tag}>{tag}</div>
+                ))}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       {/* <ListEditor
         isGameAdded={chosenGame?.gameAdded}
         userGameLoading={userGameDataIsLoading}
