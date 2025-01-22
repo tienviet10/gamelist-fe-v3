@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import { Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+import { gameListUserProfileRoute } from '@app/constants/global/urls';
 import { Button } from '@lib/Button/Button';
 
+import LoginLogoutButton from '../LoginLogoutButton/LoginLogoutButton';
 import MobileNav from '../MobileNav/MobileNav';
+
+import ProfileButton from './ProfileButton';
 
 export default function TopNav() {
   const [topValue, setTopValue] = useState(0);
@@ -41,34 +45,30 @@ export default function TopNav() {
           <nav className="ml-10">
             <ul className="flex space-x-6">
               <li>
-                <Button className="text-white" variant="ghost">
+                <Button
+                  className="text-white"
+                  onClick={() => {
+                    navigate('/');
+                  }}
+                  variant="ghost"
+                >
                   Home
                 </Button>
               </li>
+              <ProfileButton />
               <li>
-                <Button className="text-white" variant="ghost">
+                <Button className="text-white" onClick={() => navigate(gameListUserProfileRoute)} variant="ghost">
                   Game List
                 </Button>
               </li>
               <li>
-                <Button className="text-white" variant="ghost">
+                <Button className="text-white" onClick={() => navigate('/social')} variant="ghost">
                   Social
                 </Button>
               </li>
             </ul>
           </nav>
-          <div className="flex space-x-2">
-            <Button className="text-white" onClick={() => {
-              navigate('/login');
-            }} variant="ghost">
-              Login
-            </Button>
-            <Button className="bg-blue-500 text-white hover:bg-blue-600" onClick={() => {
-              navigate('/signup');
-            }}>
-              Sign up
-            </Button>
-          </div>
+          <LoginLogoutButton />
         </div>
       </header>
 

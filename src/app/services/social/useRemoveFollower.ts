@@ -3,10 +3,10 @@ import { useCallback, useMemo } from 'react';
 import client from '@app/utils/authApi';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
+import type { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
 import { removeFollowerRoute } from '@app/constants/global/urls';
 
-import { UserFollowIdResponse } from './types';
+import type { UserFollowIdResponse } from './types';
 
 type UserFollowId = {
   userId: number;

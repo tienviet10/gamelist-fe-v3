@@ -3,18 +3,8 @@ import { useCallback, useMemo } from 'react';
 import client from '@app/utils/authApi';
 import { useMutation } from '@tanstack/react-query';
 
-import { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
+import type { CustomAxiosResponse, EditUserGameParams, ErrorResponse } from '@app/constants/global/types';
 import { userGameRoute } from '@app/constants/global/urls';
-
-type EditUserGameParams = {
-  gameId: number;
-  gameStatus?: string | null;
-  gameNote?: string;
-  isPrivate?: boolean;
-  rating?: number | null;
-  completedDate?: string;
-  startDate?: string;
-};
 
 type EditUserGameType = Omit<EditUserGameParams, 'gameId'> & {
   id: number;

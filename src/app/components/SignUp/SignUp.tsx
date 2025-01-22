@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { z } from 'zod';
 
+import { useAuth } from '@app/services/authentication/useAuth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@lib/Button/Button';
 import { Checkbox } from '@lib/Checkbox/Checkbox';
@@ -25,6 +26,13 @@ const formSchema = z
   });
 
 function SignUp() {
+  const {
+    signUpMutation,
+    // signUpError
+  } = useAuth();
+
+  // TODO: display error message
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,11 +45,16 @@ function SignUp() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // console.log(values);
+    // TODO: handle password confirmation before saving
+    signUpMutation({
+      email: values.email,
+      username: values.username,
+      password: values.password,
+    });
   }
 
   return (
-    <div className="bg-background mt-16 flex max-w-96 flex-col items-center rounded-md p-10">
+    <div className="mt-16 flex max-w-96 flex-col items-center rounded-md bg-background p-10">
       <Form {...form}>
         <div className="text-6 mb-16 mt-5 font-semibold">
           <p>Sign up to GameList</p>
@@ -109,7 +122,7 @@ function SignUp() {
             name="termsOfService"
             render={({ field }) => (
               <FormItem>
-                <div className="text-primary flex flex-row items-center text-sm">
+                <div className="flex flex-row items-center text-sm text-primary">
                   <FormControl>
                     <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
@@ -127,11 +140,11 @@ function SignUp() {
       </Form>
 
       <div className="mt-20 flex flex-row text-sm">
-        <Link className="text-primary flex flex-row" to="/login">
+        <Link className="flex flex-row text-primary" to="/login">
           Login
         </Link>
         <p>&nbsp;•&nbsp;</p>
-        <Link className="text-primary flex flex-row" to="/resend-verification-email">
+        <Link className="flex flex-row text-primary" to="/resend-verification-email">
           Resend Verification Email
         </Link>
       </div>

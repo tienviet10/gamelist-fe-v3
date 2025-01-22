@@ -3,10 +3,10 @@ import { useCallback, useMemo } from 'react';
 import client from '@app/utils/authApi';
 import { useQuery } from '@tanstack/react-query';
 
-import { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
+import type { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
 import { getAllFollowRoute } from '@app/constants/global/urls';
 
-import { FollowDataType } from './types';
+import type { FollowDataType } from './types';
 
 const useGetFollow = () => {
   const getFollows = useCallback(
@@ -16,7 +16,7 @@ const useGetFollow = () => {
 
   const {
     data: followData,
-    isInitialLoading: followDataIsLoading,
+    isLoading: followDataIsLoading,
     refetch: refetchFollowData,
   } = useQuery<CustomAxiosResponse<FollowDataType>, ErrorResponse>({
     queryKey: ['follows'],

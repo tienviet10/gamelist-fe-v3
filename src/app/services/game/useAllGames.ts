@@ -1,162 +1,130 @@
-// TODO: should not use useAppSelector or any sideEffect in this hook. Those value can be pass in as props. Make this hook general for just calling the endpoint
+import { useMemo } from 'react';
 
-// import { FetchNextPageOptions, InfiniteData, InfiniteQueryObserverResult, useInfiniteQuery } from '@tanstack/react-query';
+import client from '@app/utils/authApi';
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+  useInfiniteQuery,
+} from '@tanstack/react-query';
 
-// import { CustomAxiosResponse, ErrorResponse, Game, GameFiltersSortType } from '@app/constants/global/types';
+import { DEFAULT_SORT_VALUES, REACT_QUERY_STATUS } from '@app/constants/global/constants';
+import type {
+  CustomAxiosResponse,
+  ErrorResponse,
+  Game,
+  Games,
+  OptionalHomeGameFilters,
+} from '@app/constants/global/types';
 
-// type GamesResponse = {
-//   games: Game[];
-// };
+type CustomGamesResponse = CustomAxiosResponse<Games>;
 
-// type GamesResponseWithLastEntry = CustomAxiosResponse<GamesResponse> & {
-//   lastEntry: Game | undefined;
-// };
+type Keys = keyof typeof REACT_QUERY_STATUS;
+type BaseGetGamesHook = {
+  status: (typeof REACT_QUERY_STATUS)[Keys];
+  error: null | ErrorResponse;
+  data: undefined | InfiniteData<CustomGamesResponse>;
+  fetchNextPage?: (
+    options?: FetchNextPageOptions | undefined
+  ) => Promise<InfiniteQueryObserverResult<InfiniteData<CustomGamesResponse>, ErrorResponse>>;
+  hasNextPage?: boolean;
+  isFetching?: boolean;
+  isFetchingNextPage?: boolean;
+};
 
-// type BaseGetGamesHook =
-//   | {
-//       status: 'loading';
-//       error: null;
-//       data: null;
-//     }
-//   | {
-//       status: 'success';
-//       error: null;
-//       data: InfiniteData<GamesResponseWithLastEntry>;
-//       fetchNextPage: (
-//         options?: FetchNextPageOptions | undefined
-//       ) => Promise<InfiniteQueryObserverResult<GamesResponseWithLastEntry, ErrorResponse>>;
-//     }
-//   | {
-//       status: 'error';
-//       error: ErrorResponse;
-//       data: null;
-//     };
+function lastElement(arr: Game[]) {
+  if (!arr || !Array.isArray(arr) || arr.length === 0) return undefined;
 
-// type GetGamesHookResult = BaseGetGamesHook & {
-//   hasNextPage: boolean | undefined;
-//   isFetching: boolean;
-//   isFetchingNextPage: boolean;
-// };
+  return arr[arr.length - 1];
+}
 
-// function lastElement(arr: Game[]) {
-//   if (!arr || !Array.isArray(arr) || arr.length === 0) return undefined;
+export default function useAllGames(limitParam = 20, sortVal?: OptionalHomeGameFilters): BaseGetGamesHook {
+  const queryKey = useMemo(
+    () => [
+      'Games',
+      sortVal?.genres?.included || DEFAULT_SORT_VALUES.genres.included,
+      sortVal?.tags?.included || DEFAULT_SORT_VALUES.tags.included,
+      sortVal?.platforms?.included || DEFAULT_SORT_VALUES.platforms.included,
+      sortVal?.year || DEFAULT_SORT_VALUES.year,
+      sortVal?.search || DEFAULT_SORT_VALUES.search,
+      sortVal?.genres?.excluded || DEFAULT_SORT_VALUES.genres.excluded,
+      sortVal?.tags?.excluded || DEFAULT_SORT_VALUES.tags.excluded,
+      sortVal?.sortBy || DEFAULT_SORT_VALUES.sortBy,
+      sortVal?.platforms?.excluded || DEFAULT_SORT_VALUES.platforms.excluded,
+      limitParam,
+    ],
+    [
+      limitParam,
+      sortVal?.genres?.excluded,
+      sortVal?.genres?.included,
+      sortVal?.platforms?.excluded,
+      sortVal?.platforms?.included,
+      sortVal?.search,
+      sortVal?.sortBy,
+      sortVal?.tags?.excluded,
+      sortVal?.tags?.included,
+      sortVal?.year,
+    ]
+  );
 
-//   return arr[arr.length - 1];
-// }
+  const { data, status, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery<
+    CustomGamesResponse,
+    ErrorResponse,
+    InfiniteData<CustomGamesResponse>,
+    typeof queryKey,
+    Game | null
+  >({
+    queryKey,
+    getNextPageParam: (lastPage) => {
+      if (lastPage && lastPage.data.data.games.length === 0) {
+        return undefined;
+      }
 
-// export default function useAllGames(limitParam = 20, sortBy?: GameFiltersSortType): GetGamesHookResult {
-//   const {
-//     genres,
-//     tags,
-//     platforms,
-//     search,
-//     sortBy: sortByFromStore,
-//     year,
-//   } = useAppSelector((state) => state.homeGameFilters);
+      return lastElement(lastPage.data.data.games) || undefined;
+    },
+    initialPageParam: null,
+    queryFn: async ({ pageParam }) => {
+      const res = await client.post('/game-service/games', {
+        genres: sortVal?.genres?.included || DEFAULT_SORT_VALUES.genres.included,
+        tags: sortVal?.tags?.included || DEFAULT_SORT_VALUES.tags.included,
+        platforms: sortVal?.platforms?.included || DEFAULT_SORT_VALUES.platforms.included,
+        year: sortVal?.year || DEFAULT_SORT_VALUES.year,
+        excludedGenres: sortVal?.genres?.excluded || DEFAULT_SORT_VALUES.platforms.excluded,
+        excludedTags: sortVal?.tags?.excluded || DEFAULT_SORT_VALUES.tags.excluded,
+        excludedPlatforms: sortVal?.platforms?.excluded || DEFAULT_SORT_VALUES.platforms.excluded,
+        sortBy: sortVal?.sortBy || DEFAULT_SORT_VALUES.sortBy,
+        search: sortVal?.search || DEFAULT_SORT_VALUES.search,
+        limit: limitParam,
+        gameQueryPaginationOptions: !pageParam
+          ? undefined
+          : {
+              lastId: pageParam.id,
+              lastName: pageParam.name,
+              lastReleaseDateEpoch: new Date(pageParam.releaseDate).getTime() / 1000,
+              lastAverageScore: pageParam.avgScore,
+              lastTotalRating: pageParam.totalRating,
+            },
+      });
 
-//   // Get sortBy value from params if it exists, otherwise get it from the store
-//   const sortByValue = sortBy || sortByFromStore;
+      return res;
+    },
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
-//   const queryKey = [
-//     'Games',
-//     genres.included,
-//     tags.included,
-//     platforms.included,
-//     year,
-//     search,
-//     genres.excluded,
-//     tags.excluded,
-//     sortByValue,
-//     platforms.excluded,
-//     limitParam,
-//   ];
+  const exportValues = useMemo(
+    () => ({
+      status,
+      error,
+      data,
+      fetchNextPage,
+      hasNextPage,
+      isFetching,
+      isFetchingNextPage,
+    }),
+    [status, error, data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]
+  );
 
-//   const { data, status, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery<
-//     GamesResponseWithLastEntry,
-//     ErrorResponse
-//   >({
-//     queryKey,
-
-//     // Since we aren't using offset based pagination, there isn't any way to tell if were on the last page or not. Thus we have to fetch one more time and
-//     // see if the result we get back doesn't contain any games. If it doesn't, we know thats the end.
-//     // One way to check if were at the end of the list is to check if the newly returned page of pages is equal to the fetch amount, if it's not,
-//     // then were at the end of the list. The problem with this approach is that we can't change the fetch limit once it's set. Otherwise we might
-//     // think that were at the end of the list when were not.
-//     // TODO: --- We would need to store the last fetch limit as well
-//     getNextPageParam: (lastPage) => {
-//       if (lastPage && lastPage.data.data.games.length === 0) {
-//         return undefined;
-//       }
-
-//       const { lastEntry } = lastPage;
-
-//       return lastEntry || undefined;
-//     },
-
-//     // pageParam is null for the first fetch (initial load), and will eventually be undefined when it has to fetch the next page.
-//     queryFn: async ({ pageParam }) => {
-//       const result = await client.post('/game-service/games', {
-//         genres: genres.included,
-//         tags: tags.included,
-//         platforms: platforms.included,
-//         year,
-//         excludedGenres: genres.excluded,
-//         excludedTags: tags.excluded,
-//         excludedPlatforms: platforms.excluded,
-//         sortBy: sortByValue,
-//         search,
-//         limit: limitParam,
-//         gameQueryPaginationOptions: !pageParam
-//           ? undefined
-//           : {
-//               lastId: pageParam.id,
-//               lastName: pageParam.name,
-//               lastReleaseDateEpoch: new Date(pageParam.releaseDate).getTime() / 1000,
-//               lastAverageScore: pageParam.avgScore,
-//               lastTotalRating: pageParam.totalRating,
-//             },
-//       });
-
-//       // TODO: Track fetch amount?
-//       return {
-//         ...result,
-//         lastEntry: lastElement(result.data.data.games),
-//       };
-//     },
-//     refetchOnReconnect: false,
-//     refetchOnMount: false,
-//     refetchOnWindowFocus: false,
-//   });
-
-//   if (status === 'loading') {
-//     return {
-//       status: 'loading',
-//       error: null,
-//       data: null,
-//       hasNextPage,
-//       isFetching,
-//       isFetchingNextPage,
-//     };
-//   }
-
-//   if (status === 'error') {
-//     return {
-//       status: 'error',
-//       error,
-//       data: null,
-//       hasNextPage,
-//       isFetching,
-//       isFetchingNextPage,
-//     };
-//   }
-
-//   return {
-//     status: 'success',
-//     error: null,
-//     data,
-//     hasNextPage,
-//     isFetching,
-//     isFetchingNextPage,
-//     fetchNextPage,
-//   };
-// }
+  return exportValues;
+}

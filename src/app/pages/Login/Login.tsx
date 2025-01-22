@@ -1,8 +1,12 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { z } from 'zod';
 
+import { useAuth } from '@app/services/authentication/useAuth';
+import { useAppDispatch } from '@app/store/hooks';
+import { setUser } from '@app/store/userSlice';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@lib/Button/Button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@lib/Form/Form';
@@ -14,6 +18,12 @@ const formSchema = z.object({
 });
 
 function Login() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { signInMutation, signInResponse, signInError } = useAuth();
+
+  // TODO: display error message
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -23,13 +33,23 @@ function Login() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    // console.log(values);
+    signInMutation(values);
   }
 
+  useEffect(() => {
+    if (!signInResponse?.data?.data?.token) return;
+
+    localStorage.setItem('token', signInResponse.data.data.token);
+    dispatch(setUser(signInResponse.data.data.user));
+    navigate('/userProfile/overview');
+  }, [dispatch, navigate, signInResponse]);
+
+  useEffect(() => {
+    toast.error(signInError?.response?.data?.details || signInError?.message);
+  }, [signInError]);
+
   return (
-    <div className="bg-background flex max-w-96 flex-col items-center rounded-md p-10">
+    <div className="flex max-w-96 flex-col items-center rounded-md bg-background p-10">
       <Form {...form}>
         <div className="text-6 mb-16 mt-5 font-semibold">
           <p>Login</p>
@@ -66,11 +86,11 @@ function Login() {
           </Button>
         </form>
       </Form>
-      <Link className="text-primary mt-5 text-sm" to="/forgot-password">
+      <Link className="mt-5 text-sm text-primary" to="/forgot-password">
         Forgot password?
       </Link>
       <div className="mt-20 flex flex-row text-sm">
-        <Link className="text-primary flex flex-row" to="/signup">
+        <Link className="flex flex-row text-primary" to="/signup">
           <p>Not registered?&nbsp;</p>
           <p>Create an account</p>
         </Link>

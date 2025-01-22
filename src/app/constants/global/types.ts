@@ -129,14 +129,123 @@ export type PostsAndStatusUpdatesData = {
   lastPostOrStatusUpdateId: number;
 };
 
-export type PostsAndStatusUpdatesResponse = {
-  data: { postsAndStatusUpdates: PostsAndStatusUpdatesData };
-  message: string;
-  status: string;
-  statusCode: number;
-  timestamp: string;
+export type CustomPostStatusResponseType = {
+  postsAndStatusUpdates: PostsAndStatusUpdatesData;
 };
+
+export type PostStatusResponseType = CustomAxiosResponse<CustomPostStatusResponseType>;
 
 export type SharedSortType = 'name' | 'avg_score' | 'newest_releases' | 'oldest_releases';
 
 export type GameFiltersSortType = SharedSortType | 'total_rating';
+
+export type Games = {
+  games: Game[];
+};
+
+export type HomeGameFilters = {
+  search: string | undefined;
+  genres: {
+    included: string[];
+    excluded: string[];
+  };
+  platforms: {
+    included: string[];
+    excluded: string[];
+  };
+  tags: {
+    included: string[];
+    excluded: string[];
+  };
+  year: number | undefined;
+  sortBy: GameFiltersSortType | undefined;
+};
+
+export type OptionalHomeGameFilters = Partial<HomeGameFilters>;
+
+export type InitialStateType = {
+  loading: boolean;
+  user: UserData;
+};
+
+export type UserInfo = {
+  id: string;
+  username: string;
+  bannerPicture: string;
+  createdAt: string;
+  games: string[];
+  isActive: boolean;
+  userGames: string[];
+  userPicture: string;
+  __typename: string;
+};
+
+export type UserGamesType = {
+  userGamesByStatus: UserGamesByStatus;
+};
+
+export type ListTypes = 'planning' | 'playing' | 'paused' | 'completed' | 'dropped' | 'justAdded';
+
+export type SelectedListTypes = ListTypes | 'all';
+
+export type UserGameFiltersSortType = SharedSortType | 'last_updated' | 'last_added' | 'start_date' | 'completed_date';
+
+export type UserGameFilters = {
+  selectedList: SelectedListTypes;
+  search: string | undefined;
+  genres: string | undefined;
+  platforms: string | undefined;
+  tags: string | undefined;
+  year: number | undefined;
+  sortBy: UserGameFiltersSortType | undefined;
+};
+
+export type RequiredGameWithIsAdded = RequiredGame & {
+  gameAdded?: boolean;
+  imageURL?: string;
+};
+
+export type ListsOrderType = keyof Omit<
+  UserGamesByStatus,
+  | 'totalCount'
+  | 'listsOrder'
+  | 'inactiveCount'
+  | 'droppedCount'
+  | 'pausedCount'
+  | 'completedCount'
+  | 'playingCount'
+  | 'planningCount'
+  | 'justAddedCount'
+>;
+
+export type EditUserGameParams = {
+  gameId: number;
+  gameStatus?: string | null;
+  gameNote?: string;
+  isPrivate?: boolean;
+  rating?: number | null;
+  completedDate?: string;
+  startDate?: string;
+};
+
+export type UserGamesByGameID = {
+  id: number;
+  gameStatus: string;
+  startDate: string;
+  completedDate: string;
+  isPrivate: boolean;
+  rating: number;
+  gameNote: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export interface DropDownOption {
+  value: string | number;
+  label: string | number;
+  children?: DropDownOption[];
+}
+
+export type OnChangeCascaderType = (string | number)[] | string | number;
+
+export declare type ArrayElementType<T> = T extends (infer E)[] ? E : T;
