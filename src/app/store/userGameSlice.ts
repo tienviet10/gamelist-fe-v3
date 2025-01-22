@@ -6,7 +6,7 @@ import { InitialStateUserGameType } from './types';
 
 const initialState: InitialStateUserGameType = INITIAL_USER_GAME_BY_ID_STATE;
 
-// TODO: Add types to refector the reducer
+// TODO: Add types to refactor the reducer
 export const userGameSlice = createSlice({
   name: 'userGame',
   initialState,
@@ -15,7 +15,7 @@ export const userGameSlice = createSlice({
       state,
       action: PayloadAction<{
         type: string;
-        payload: string | number | boolean | UserGamesByGameID;
+        payload: string | number | boolean;
       }>
     ) => {
       const { type, payload } = action.payload;
@@ -42,33 +42,35 @@ export const userGameSlice = createSlice({
         state.completedDate = payload === '' ? undefined : (payload as string);
       } else if (type === 'startDate') {
         state.startDate = payload === '' ? undefined : (payload as string);
-      } else if (type === 'userGame') {
-        const { gameStatus, gameNote, rating, isPrivate, completedDate, startDate, id } = payload as UserGamesByGameID;
-
-        if (gameStatus === 'Inactive') {
-          state.id = -1;
-          state.gameStatus = null;
-          state.gameNote = '';
-          state.rating = null;
-          state.private = false;
-          state.completedDate = undefined;
-          state.startDate = undefined;
-        } else {
-          state.id = id;
-          state.gameStatus = gameStatus;
-          state.gameNote = gameNote;
-          state.rating = rating;
-          state.private = isPrivate;
-          state.completedDate = completedDate === '' ? undefined : completedDate;
-          state.startDate = startDate === '' ? undefined : startDate;
-        }
-      } else if (type === 'reset') {
-        Object.assign(state, INITIAL_USER_GAME_BY_ID_STATE);
       }
+    },
+    setUserGame: (state, action: PayloadAction<UserGamesByGameID>) => {
+      const { gameStatus, gameNote, rating, isPrivate, completedDate, startDate, id } = action.payload;
+
+      if (gameStatus === 'Inactive') {
+        state.id = -1;
+        state.gameStatus = null;
+        state.gameNote = '';
+        state.rating = null;
+        state.private = false;
+        state.completedDate = undefined;
+        state.startDate = undefined;
+      } else {
+        state.id = id;
+        state.gameStatus = gameStatus;
+        state.gameNote = gameNote;
+        state.rating = rating;
+        state.private = isPrivate;
+        state.completedDate = completedDate === '' ? undefined : completedDate;
+        state.startDate = startDate === '' ? undefined : startDate;
+      }
+    },
+    userGameReset: (state) => {
+      Object.assign(state, INITIAL_USER_GAME_BY_ID_STATE);
     },
   },
 });
 
-export const { setUserGameReducer } = userGameSlice.actions;
+export const { setUserGameReducer, setUserGame, userGameReset } = userGameSlice.actions;
 
 export default userGameSlice.reducer;

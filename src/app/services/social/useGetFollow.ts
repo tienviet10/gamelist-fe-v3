@@ -16,7 +16,7 @@ const useGetFollow = () => {
 
   const {
     data: followData,
-    isInitialLoading: followDataIsLoading,
+    isLoading: followDataIsLoading,
     refetch: refetchFollowData,
   } = useQuery<CustomAxiosResponse<FollowDataType>, ErrorResponse>({
     queryKey: ['follows'],

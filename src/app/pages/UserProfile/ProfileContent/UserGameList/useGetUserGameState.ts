@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 
-import { INITIAL_USER_GAME_BY_ID_STATE } from '@app/constants/global/constants';
 import useGetUserGame from '@app/services/usergames/useGetUserGame';
 import { useAppDispatch, useAppSelector } from '@app/store/hooks';
-import { setUserGameReducer } from '@app/store/userGameSlice';
+import { setUserGame, userGameReset } from '@app/store/userGameSlice';
 
 const useGetUserGameState = (gameId: number | undefined) => {
   const dispatch = useAppDispatch();
@@ -12,19 +11,9 @@ const useGetUserGameState = (gameId: number | undefined) => {
 
   useEffect(() => {
     if (userGame?.data.data && userState.user.email !== '') {
-      dispatch(
-        setUserGameReducer({
-          type: 'userGame',
-          payload: userGame?.data.data.userGame,
-        })
-      );
+      dispatch(setUserGame(userGame?.data.data.userGame));
     } else {
-      dispatch(
-        setUserGameReducer({
-          type: 'userGame',
-          payload: INITIAL_USER_GAME_BY_ID_STATE,
-        })
-      );
+      dispatch(userGameReset());
     }
   }, [dispatch, userGame?.data.data, userState.user.email]);
 
