@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { Game } from '@app/constants/global/types';
+import type { Game } from '@app/constants/global/types';
 
 import styles from './ListCards.module.scss';
 

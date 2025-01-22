@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react';
 
-import { SelectedListTypes } from '@app/constants/global/types';
+import type { SelectedListTypes } from '@app/constants/global/types';
 import useGetUserGames from '@app/services/usergames/useGetUserGames';
 import { setUserGameFilters } from '@app/store/gameFiltersSlice';
 import { useAppDispatch, useAppSelector } from '@app/store/hooks';
 
-import { DataList } from './types';
+import type { DataList } from './types';
 
 import styles from './AvailableListsStyle.module.scss';
 

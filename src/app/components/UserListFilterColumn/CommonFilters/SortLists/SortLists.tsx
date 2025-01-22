@@ -1,6 +1,6 @@
 import { ChangeEvent, useMemo } from 'react';
 
-import { UserGameFiltersSortType } from '@app/constants/global/types';
+import type { UserGameFiltersSortType } from '@app/constants/global/types';
 import { setUserGameFilters } from '@app/store/gameFiltersSlice';
 import { useAppDispatch } from '@app/store/hooks';
 

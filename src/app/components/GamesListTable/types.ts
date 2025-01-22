@@ -1,4 +1,4 @@
-import { RequiredGameWithIsAdded } from '@app/constants/global/types';
+import type { RequiredGameWithIsAdded } from '@app/constants/global/types';
 
 export type GameDataType = RequiredGameWithIsAdded & {
   key?: React.Key;

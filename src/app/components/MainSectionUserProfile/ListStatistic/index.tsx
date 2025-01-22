@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useQueryClient } from '@tanstack/react-query';
 
-import { CustomAxiosResponse, UserGamesByStatus, UserGamesType } from '@app/constants/global/types';
+import type { CustomAxiosResponse, UserGamesByStatus, UserGamesType } from '@app/constants/global/types';
 
 function ListStatistic() {
   const queryClient = useQueryClient();

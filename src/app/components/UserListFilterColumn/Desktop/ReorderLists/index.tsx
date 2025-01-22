@@ -1,10 +1,10 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
-import { ListsOrderType } from '@app/constants/global/types';
+import type { ListsOrderType } from '@app/constants/global/types';
 import { useAppDispatch, useAppSelector } from '@app/store/hooks';
 import { setLocalListOrder } from '@app/store/userGamesListSlice';
 
-import { StatusContentType, StatusListType } from '../../types';
+import type { StatusContentType, StatusListType } from '../../types';
 import StatusItem from '../StatusItem';
 
 import { StrictModeDroppable } from './StrictModeDroppable';

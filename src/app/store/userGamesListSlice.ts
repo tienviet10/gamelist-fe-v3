@@ -1,8 +1,8 @@
 import { INITIAL_USER_GAME_LISTS } from '@app/constants/global/constants';
-import { ListsOrderType } from '@app/constants/global/types';
+import type { ListsOrderType } from '@app/constants/global/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { InitialStateUserGamesListType } from './types';
+import type { InitialStateUserGamesListType } from './types';
 
 const initialState: InitialStateUserGamesListType = INITIAL_USER_GAME_LISTS;
 

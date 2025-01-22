@@ -85,15 +85,15 @@ export default function useAllGames(limitParam = 20, sortVal?: OptionalHomeGameF
     initialPageParam: null,
     queryFn: async ({ pageParam }) => {
       const res = await client.post('/game-service/games', {
-        genres: sortVal?.genres?.included,
-        tags: sortVal?.tags?.included,
-        platforms: sortVal?.platforms?.included,
-        year: sortVal?.year,
-        excludedGenres: sortVal?.genres?.excluded,
-        excludedTags: sortVal?.tags?.excluded,
-        excludedPlatforms: sortVal?.platforms?.excluded,
-        sortBy: sortVal?.sortBy,
-        search: sortVal?.search,
+        genres: sortVal?.genres?.included || DEFAULT_SORT_VALUES.genres.included,
+        tags: sortVal?.tags?.included || DEFAULT_SORT_VALUES.tags.included,
+        platforms: sortVal?.platforms?.included || DEFAULT_SORT_VALUES.platforms.included,
+        year: sortVal?.year || DEFAULT_SORT_VALUES.year,
+        excludedGenres: sortVal?.genres?.excluded || DEFAULT_SORT_VALUES.platforms.excluded,
+        excludedTags: sortVal?.tags?.excluded || DEFAULT_SORT_VALUES.tags.excluded,
+        excludedPlatforms: sortVal?.platforms?.excluded || DEFAULT_SORT_VALUES.platforms.excluded,
+        sortBy: sortVal?.sortBy || DEFAULT_SORT_VALUES.sortBy,
+        search: sortVal?.search || DEFAULT_SORT_VALUES.search,
         limit: limitParam,
         gameQueryPaginationOptions: !pageParam
           ? undefined

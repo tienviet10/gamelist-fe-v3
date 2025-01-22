@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import getTimeElapsed from '@app/components/ListActivities/getTimeElapsed';
 import MemoizedPostInput from '@app/components/PostInput';
-import { PostsDTOResponse, StatusUpdatesDTOResponse } from '@app/constants/global/types';
+import type { PostsDTOResponse, StatusUpdatesDTOResponse } from '@app/constants/global/types';
 
 import PostActivity from './PostActivity';
 import StatusUpdateActivity from './StatusUpdateActivity';

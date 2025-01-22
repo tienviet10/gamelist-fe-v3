@@ -1,21 +1,21 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
-import { RequiredGameWithIsAdded } from '@app/constants/global/types';
-import useGetUserGameState from '@app/pages/UserProfile/ProfileContent/UserGameList/useGetUserGameState';
+// import type { RequiredGameWithIsAdded } from '@app/constants/global/types';
+// import useGetUserGameState from '@app/pages/UserProfile/ProfileContent/UserGameList/useGetUserGameState';
 
-import type { GameDataType, UserGameListDataType } from '../types';
+import type { UserGameListDataType } from '../types';
 
 // import styles from './UserGameListDesktop.module.scss';
 
 function UserGameListDesktop({ data }: UserGameListDataType) {
-  const [open, setOpen] = useState<boolean>(false);
-  const [chosenGame, setChosenGame] = useState<RequiredGameWithIsAdded | undefined | GameDataType>();
-  const { userGameDataIsLoading } = useGetUserGameState(chosenGame?.id);
+  // const [open, setOpen] = useState<boolean>(false);
+  // const [chosenGame, setChosenGame] = useState<RequiredGameWithIsAdded | undefined | GameDataType>();
+  // const { userGameDataIsLoading } = useGetUserGameState(chosenGame?.id);
 
-  const handleClick = (game: GameDataType) => {
-    setChosenGame(game);
-    setOpen(true);
-  };
+  // const handleClick = (game: GameDataType) => {
+  //   setChosenGame(game);
+  //   setOpen(true);
+  // };
 
   // const columns: ColumnsType<GameDataType> = [
   //   {

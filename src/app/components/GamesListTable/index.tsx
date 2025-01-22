@@ -1,4 +1,4 @@
-import { RequiredGame } from '@app/constants/global/types';
+import type { RequiredGame } from '@app/constants/global/types';
 import { useAppSelector } from '@app/store/hooks';
 
 import UserGameListDesktop from './Desktop';

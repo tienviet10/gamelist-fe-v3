@@ -245,3 +245,7 @@ export interface DropDownOption {
   label: string | number;
   children?: DropDownOption[];
 }
+
+export type OnChangeCascaderType = (string | number)[] | string | number;
+
+export declare type ArrayElementType<T> = T extends (infer E)[] ? E : T;

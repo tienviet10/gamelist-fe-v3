@@ -1,6 +1,6 @@
 import { Draggable } from 'react-beautiful-dnd';
 
-import { StatusItemType } from '../types';
+import type { StatusItemType } from '../types';
 
 import styles from './StatusItemStyle.module.scss';
 

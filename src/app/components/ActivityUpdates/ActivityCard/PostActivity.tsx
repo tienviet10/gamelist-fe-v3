@@ -1,4 +1,4 @@
-import { PostsDTOResponse } from '@app/constants/global/types';
+import type { PostsDTOResponse } from '@app/constants/global/types';
 
 import styles from './PostActivity.module.scss';
 

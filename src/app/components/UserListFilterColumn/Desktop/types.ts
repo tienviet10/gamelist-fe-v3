@@ -1,6 +1,6 @@
-import { DropDownOption } from '@app/constants/global/types';
+import type { DropDownOption } from '@app/constants/global/types';
 
-import { StatusContentType } from '../types';
+import type { StatusContentType } from '../types';
 
 export type Filter = {
   name: string;

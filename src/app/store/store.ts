@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import userGameFiltersSlice from './gameFiltersSlice';
+import homeSearchSlice from './homeSearchSlice';
 import userGameSlice from './userGameSlice';
 import userGamesListSlice from './userGamesListSlice';
 import userReducer from './userSlice';
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   userGameFilters: userGameFiltersSlice,
   userGame: userGameSlice,
   userGames: userGamesListSlice,
+  homeSearch: homeSearchSlice,
 });
 
 export const store = configureStore({

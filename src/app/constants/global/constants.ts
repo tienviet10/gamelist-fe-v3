@@ -1,4 +1,4 @@
-import { HomeGameFilters, ListsOrderType } from './types';
+import type { HomeGameFilters, ListsOrderType } from './types';
 
 export const REACT_QUERY_STATUS = Object.freeze({
   PENDING: 'pending',

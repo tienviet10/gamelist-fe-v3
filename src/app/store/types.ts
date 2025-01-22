@@ -3,7 +3,7 @@
 //   user: UserInfo;
 // };
 
-import { ListsOrderType } from '@app/constants/global/types';
+import type { ListsOrderType } from '@app/constants/global/types';
 
 // type UserInfo = {
 //   id: string;
@@ -32,6 +32,6 @@ export type InitialStateUserGameType = {
   id: number;
 };
 
-// export type HomeSearchSlice = {
-//   view: 'grid' | 'list';
-// };
+export type HomeSearchSlice = {
+  view: 'grid' | 'list';
+};

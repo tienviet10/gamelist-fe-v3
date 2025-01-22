@@ -1,4 +1,4 @@
-import { UserGameFilters } from '@app/constants/global/types';
+import type { UserGameFilters } from '@app/constants/global/types';
 import { createSlice, Draft, PayloadAction, SliceCaseReducers, ValidateSliceCaseReducers } from '@reduxjs/toolkit';
 
 export function createGameFiltersSlice<T, Reducers extends SliceCaseReducers<T>>({
