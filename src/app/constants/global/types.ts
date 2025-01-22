@@ -239,3 +239,9 @@ export type UserGamesByGameID = {
   createdAt: string;
   updatedAt: string;
 };
+
+export interface DropDownOption {
+  value: string | number;
+  label: string | number;
+  children?: DropDownOption[];
+}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 
 import UserGamesTable from '@app/components/GamesListTable';
+import FilterColumn from '@app/components/UserListFilterColumn';
 import type { ListsOrderType } from '@app/constants/global/types';
 import useGetUserGames from '@app/services/usergames/useGetUserGames';
 import { useAppDispatch, useAppSelector } from '@app/store/hooks';
@@ -39,8 +40,7 @@ function UserGameList() {
 
   return (
     <div className={styles.mainContainer}>
-      {/* <FilterColumn /> */}
-      <div>Filtered Columns</div>
+      <FilterColumn />
       <div>
         {listToDisplay.map((list) => (
           <UserGamesTable

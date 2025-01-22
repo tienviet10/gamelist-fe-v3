@@ -45,4 +45,10 @@ export const userGameFiltersSlice = createGameFiltersSlice({
   reducers: {},
 });
 
+export const {
+  setFilters: setUserGameFilters,
+  resetFilter: resetUserGameFilter,
+  reset: resetUserGameFilters,
+} = userGameFiltersSlice.actions;
+
 export default userGameFiltersSlice.reducer;

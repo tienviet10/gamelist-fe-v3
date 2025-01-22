@@ -11,28 +11,17 @@ const nullGenresPlatformsTagsFurthestYear = {
   furthestYear: null,
 };
 
-type NullGenresPlatformsTagsFurthestYearType = typeof nullGenresPlatformsTagsFurthestYear;
-
 export type GameFilters = {
-  genres: string[];
-  platforms: string[];
-  tags: string[];
-  furthestYear: number;
+  genres: string[] | null;
+  platforms: string[] | null;
+  tags: string[] | null;
+  furthestYear: number | null;
 };
 
-type GetFiltersHook =
-  | (NullGenresPlatformsTagsFurthestYearType & {
-      status: 'loading';
-      error: null;
-    })
-  | (GameFilters & {
-      status: 'success';
-      error: null;
-    })
-  | (NullGenresPlatformsTagsFurthestYearType & {
-      status: 'error';
-      error: ErrorResponse;
-    });
+type GetFiltersHook = GameFilters & {
+  status: 'loading' | 'error' | 'success';
+  error: null | ErrorResponse;
+};
 
 type GameFiltersResponse = {
   gameFilters: GameFilters;

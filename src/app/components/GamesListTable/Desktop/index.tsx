@@ -5,7 +5,7 @@ import useGetUserGameState from '@app/pages/UserProfile/ProfileContent/UserGameL
 
 import type { GameDataType, UserGameListDataType } from '../types';
 
-import styles from './UserGameListDesktop.module.scss';
+// import styles from './UserGameListDesktop.module.scss';
 
 function UserGameListDesktop({ data }: UserGameListDataType) {
   const [open, setOpen] = useState<boolean>(false);
