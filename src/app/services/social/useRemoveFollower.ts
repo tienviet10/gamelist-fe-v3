@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
 import { removeFollowerRoute } from '@app/constants/global/urls';
 
-import type { UserFollowIdResponse } from './types';
+import type { FollowedUserData } from './types';
 
 type UserFollowId = {
   userId: number;
@@ -16,7 +16,7 @@ const useRemoveFollower = () => {
   const queryClient = useQueryClient();
 
   const removeFollower = useCallback(
-    async (params: UserFollowId): Promise<CustomAxiosResponse<UserFollowIdResponse>> =>
+    async (params: UserFollowId): Promise<CustomAxiosResponse<FollowedUserData>> =>
       client.delete(`/${removeFollowerRoute}/${params.userId}`),
     []
   );
@@ -26,7 +26,7 @@ const useRemoveFollower = () => {
     data: removedFollowerUserData,
     error: removeFollowerError,
     isError: removedFollowerIsError,
-  } = useMutation<CustomAxiosResponse<UserFollowIdResponse>, ErrorResponse, UserFollowId>({
+  } = useMutation<CustomAxiosResponse<FollowedUserData>, ErrorResponse, UserFollowId>({
     mutationFn: removeFollower,
     onSuccess: () => {
       queryClient.fetchQuery({ queryKey: ['follows'] });

@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
 import { addFollowRoute } from '@app/constants/global/urls';
 
-import type { UserFollowIdResponse } from './types';
+import type { FollowedUserData } from './types';
 
 type UserFollowId = {
   id: number;
@@ -14,7 +14,7 @@ type UserFollowId = {
 
 const useAddFollow = () => {
   const addFollow = useCallback(
-    async (params: UserFollowId): Promise<CustomAxiosResponse<UserFollowIdResponse>> =>
+    async (params: UserFollowId): Promise<CustomAxiosResponse<FollowedUserData>> =>
       client.post(`/${addFollowRoute}/${params.id}`),
     []
   );
@@ -24,7 +24,7 @@ const useAddFollow = () => {
     data: followedUserData,
     error: addFollowError,
     isError: addFollowIsError,
-  } = useMutation<CustomAxiosResponse<UserFollowIdResponse>, ErrorResponse, UserFollowId>({
+  } = useMutation<CustomAxiosResponse<FollowedUserData>, ErrorResponse, UserFollowId>({
     mutationFn: addFollow,
   });
 

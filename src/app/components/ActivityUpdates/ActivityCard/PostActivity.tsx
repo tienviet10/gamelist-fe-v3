@@ -1,5 +1,5 @@
 import type { PostsDTOResponse } from '@app/constants/global/types';
-import useAddFollow from '@app/services/social/useAddFollow';
+import useHandleAddRemoveFollow from '@app/pages/UserProfile/ProfileContent/Social/useHandleAddRemoveFollow';
 import { Button } from '@lib/Button/Button';
 import {
   Dialog,
@@ -15,9 +15,7 @@ import {
 import styles from './PostActivity.module.scss';
 
 function PostActivity({ post, username }: { post: PostsDTOResponse; username: string }) {
-  // const { handleAddFollow, contextHolder: handleFollowContextHolder } =
-  //   useAddRemoveFollowCustomHook();
-  const { addFollowMutation } = useAddFollow();
+  const { handleAddFollow } = useHandleAddRemoveFollow();
 
   return (
     <div className={styles.postActivityContainer}>
@@ -52,7 +50,7 @@ function PostActivity({ post, username }: { post: PostsDTOResponse; username: st
                 </Button>
               </DialogClose>
               <DialogTrigger>
-                <Button onClick={() => addFollowMutation(post?.user)}>Confirm</Button>
+                <Button onClick={() => handleAddFollow(post?.user)}>Confirm</Button>
               </DialogTrigger>
             </DialogFooter>
           </DialogContent>
