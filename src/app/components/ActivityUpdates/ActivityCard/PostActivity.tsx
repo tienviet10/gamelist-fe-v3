@@ -31,13 +31,21 @@ function PostActivity({ post, username }: { post: PostsDTOResponse; username: st
           style={{ cursor: `${post.user?.username !== username && 'pointer'}` }}
         /> */}
         <Dialog>
-          <DialogTrigger asChild>
+          {post.user?.username && post.user?.username !== username ? (
+            <DialogTrigger asChild>
+              <img
+                alt="Avatar"
+                src={post?.user?.userPicture}
+                style={{ width: '50px', height: '50px', borderRadius: '100%' }}
+              />
+            </DialogTrigger>
+          ) : (
             <img
               alt="Avatar"
               src={post?.user?.userPicture}
               style={{ width: '50px', height: '50px', borderRadius: '100%' }}
             />
-          </DialogTrigger>
+          )}
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
               <DialogTitle>Are you sure you want to follow {post?.user?.username}?</DialogTitle>
@@ -49,9 +57,9 @@ function PostActivity({ post, username }: { post: PostsDTOResponse; username: st
                   Close
                 </Button>
               </DialogClose>
-              <DialogTrigger>
+              <DialogClose asChild>
                 <Button onClick={() => handleAddFollow(post?.user)}>Confirm</Button>
-              </DialogTrigger>
+              </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
