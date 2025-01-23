@@ -9,13 +9,13 @@ import { addFollowRoute } from '@app/constants/global/urls';
 import type { UserFollowIdResponse } from './types';
 
 type UserFollowId = {
-  userId: number;
+  id: number;
 };
 
 const useAddFollow = () => {
   const addFollow = useCallback(
     async (params: UserFollowId): Promise<CustomAxiosResponse<UserFollowIdResponse>> =>
-      client.post(`/${addFollowRoute}/${params.userId}`),
+      client.post(`/${addFollowRoute}/${params.id}`),
     []
   );
 
