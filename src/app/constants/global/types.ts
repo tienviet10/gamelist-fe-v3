@@ -83,7 +83,7 @@ export type LikeDTO = {
   createdAt: string;
 };
 
-type CommentDTO = {
+export type CommentDTO = {
   id: number;
   text: string;
   createdAt: string;
@@ -99,6 +99,20 @@ export type PostsDTOResponse = {
   user: UserBasicDTO;
   likes: LikeDTO[];
   comments: CommentDTO[];
+};
+
+export type CommentDTOResponse = {
+  id: number;
+  text: string;
+  createdAt: string;
+  userId: string;
+  likes: LikeDTO[];
+  comments: CommentDTO[];
+};
+
+export type CreateCommentResponse = {
+  comment: CommentDTO;
+  interactiveEntityId: number;
 };
 
 type GameBasicDTO = {
@@ -249,3 +263,12 @@ export interface DropDownOption {
 export type OnChangeCascaderType = (string | number)[] | string | number;
 
 export declare type ArrayElementType<T> = T extends (infer E)[] ? E : T;
+
+export type OldPostsAndStatusUpdatesDataType = {
+  pageParams: number[];
+  pages: PostsAndStatusUpdatesPageType[];
+};
+
+type PostsAndStatusUpdatesPageType = {
+  data: CustomPostStatusResponseType;
+};

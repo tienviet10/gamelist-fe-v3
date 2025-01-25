@@ -131,7 +131,11 @@ function ActivityCard({
                       cursor: `${comment.user.username !== username && 'pointer'}`,
                     }}
                   /> */}
-                  <img alt="Avatar" src={comment.user.userPicture} />
+                  <img
+                    alt="Avatar"
+                    src={comment.user.userPicture}
+                    style={{ width: '50px', height: '50px', borderRadius: '100%' }}
+                  />
                   {comment.user.username && (
                     <a aria-label={comment.user.username} href={`/user/${comment.user.username}`}>
                       {' '}
