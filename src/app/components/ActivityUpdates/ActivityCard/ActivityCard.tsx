@@ -3,6 +3,7 @@ import { useState } from 'react';
 import getTimeElapsed from '@app/components/ListActivities/getTimeElapsed';
 import MemoizedPostInput from '@app/components/PostInput';
 import type { PostsDTOResponse, StatusUpdatesDTOResponse } from '@app/constants/global/types';
+import useDeleteComment from '@app/services/post/useDeleteComment';
 
 import PostActivity from './PostActivity';
 import StatusUpdateActivity from './StatusUpdateActivity';
@@ -19,6 +20,7 @@ function ActivityCard({
   const { daysElapsed, hoursElapsed } = getTimeElapsed(activity.createdAt);
   const isCurrentLiked = activity.likes.some((like) => like.user.username === username);
   const [isCommentVisible, setIsCommentVisible] = useState<boolean>(activity.comments.length > 0);
+  const { deleteCommentMutation } = useDeleteComment();
 
   return (
     <div className={`${styles.activity} ${'text' in activity && styles.postActivity}`}>
@@ -112,9 +114,11 @@ function ActivityCard({
       <div className={styles.replyContainer} style={{ display: `${isCommentVisible ? 'block' : 'none'}` }}>
         <div className={styles.activityReply}>
           {activity.comments.map((comment) => {
-            const { daysElapsed: commentDaysElapsed, hoursElapsed: commentHoursElapsed } = getTimeElapsed(
-              comment.createdAt
-            );
+            const {
+              daysElapsed: commentDaysElapsed,
+              hoursElapsed: commentHoursElapsed,
+              minutesElapsed: commentMinutesElapsed,
+            } = getTimeElapsed(comment.createdAt);
 
             return (
               <div className={styles.replyList} key={comment.id}>
@@ -177,14 +181,25 @@ function ActivityCard({
                     <button
                       onClick={() => {
                         if (comment.user.username && comment.user.username === username) {
-                          // await handleRemoveComment(comment);
+                          deleteCommentMutation({ commentId: comment.id, interactiveEntityId: activity.id });
                         }
                       }}
                     >
                       Close
                     </button>
                     <div className={styles.time}>
-                      {commentDaysElapsed > 0 ? `${commentDaysElapsed} days` : `${commentHoursElapsed} hours`} ago
+                      {(() => {
+                        if (commentDaysElapsed > 0) {
+                          return `${commentDaysElapsed} days`;
+                        }
+
+                        if (commentHoursElapsed > 0) {
+                          return `${commentHoursElapsed} hours`;
+                        }
+
+                        return `${commentMinutesElapsed} mins`;
+                      })()}{' '}
+                      ago
                     </div>
                   </div>
                 </div>

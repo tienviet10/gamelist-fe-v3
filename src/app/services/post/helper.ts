@@ -1,10 +1,4 @@
-import {
-  CommentDTO,
-  CommentDTOResponse,
-  CreateCommentResponse,
-  OldPostsAndStatusUpdatesDataType,
-  PostsDTOResponse,
-} from '@app/constants/global/types';
+import { CommentDTO, OldPostsAndStatusUpdatesDataType, PostsDTOResponse } from '@app/constants/global/types';
 
 export const updatePostByPost = (
   oldData: OldPostsAndStatusUpdatesDataType | undefined,
@@ -83,7 +77,7 @@ export const updatePostByPost = (
 
 export const updateCommentInCache = (
   oldData: OldPostsAndStatusUpdatesDataType | undefined,
-  newComment: CommentDTO,
+  newComment: CommentDTO | number,
   interactiveEntityId: number,
   updateType: 'create' | 'delete' | 'update'
 ): OldPostsAndStatusUpdatesDataType | undefined => {
@@ -92,20 +86,24 @@ export const updateCommentInCache = (
   }
 
   const newData = structuredClone(oldData);
-  const { pageParams, pages } = newData;
+  const { pages } = newData;
+  const firstPage = pages[0];
+  const { posts } = firstPage.data.postsAndStatusUpdates;
 
   if (updateType === 'create') {
-    const firstPage = pages[0];
-    const { posts } = firstPage.data.postsAndStatusUpdates;
-    const foundComment = posts.find((post) => post.id === interactiveEntityId);
+    const foundPost = posts.find((post) => post.id === interactiveEntityId);
 
-    foundComment?.comments.push(newComment);
-
-    return newData;
+    foundPost?.comments.push(newComment as CommentDTO);
   }
 
-  return {
-    pageParams,
-    pages,
-  };
+  if (updateType === 'delete') {
+    const foundPost = posts.find((post) => post.id === interactiveEntityId);
+    const newComments = foundPost?.comments.filter((comment) => comment.id !== newComment);
+
+    if (foundPost) {
+      foundPost.comments = newComments || [];
+    }
+  }
+
+  return newData;
 };

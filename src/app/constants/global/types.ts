@@ -14,7 +14,7 @@ export interface ErrorResponse extends AxiosError {
   response: SpringErrorResponse;
 }
 
-interface GeneralResponse {
+export interface GeneralResponse {
   message: string;
   statusCode: number;
   status: string;
