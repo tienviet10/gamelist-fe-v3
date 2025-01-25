@@ -1,9 +1,12 @@
+import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
 import { CommentDTO, OldPostsAndStatusUpdatesDataType, PostsDTOResponse } from '@app/constants/global/types';
+
+type UpdateCacheTypeValues = (typeof UPDATE_CACHE_TYPE)[keyof typeof UPDATE_CACHE_TYPE];
 
 export const updatePostByPost = (
   oldData: OldPostsAndStatusUpdatesDataType | undefined,
   newPost: PostsDTOResponse,
-  updateType: 'create' | 'delete' | 'update'
+  updateType: UpdateCacheTypeValues
 ): OldPostsAndStatusUpdatesDataType | undefined => {
   if (!oldData) {
     return undefined;
@@ -11,7 +14,7 @@ export const updatePostByPost = (
 
   const { pageParams, pages } = oldData;
 
-  if (updateType === 'create') {
+  if (updateType === UPDATE_CACHE_TYPE.CREATE) {
     const firstPage = pages[0];
     const { posts } = firstPage.data.postsAndStatusUpdates;
     const newPosts = [newPost, ...posts];
@@ -35,7 +38,7 @@ export const updatePostByPost = (
     };
   }
 
-  if (updateType === 'update') {
+  if (updateType === UPDATE_CACHE_TYPE.UPDATE) {
     for (let i = 0; i < pages.length; i += 1) {
       if (pages[i].data.postsAndStatusUpdates.lastPostOrStatusUpdateId <= newPost.id) {
         const { posts } = pages[i].data.postsAndStatusUpdates;
@@ -79,7 +82,7 @@ export const updateCommentInCache = (
   oldData: OldPostsAndStatusUpdatesDataType | undefined,
   newComment: CommentDTO | number,
   interactiveEntityId: number,
-  updateType: 'create' | 'delete' | 'update'
+  updateType: UpdateCacheTypeValues
 ): OldPostsAndStatusUpdatesDataType | undefined => {
   if (!oldData) {
     return undefined;
@@ -90,13 +93,13 @@ export const updateCommentInCache = (
   const firstPage = pages[0];
   const { posts } = firstPage.data.postsAndStatusUpdates;
 
-  if (updateType === 'create') {
+  if (updateType === UPDATE_CACHE_TYPE.CREATE) {
     const foundPost = posts.find((post) => post.id === interactiveEntityId);
 
     foundPost?.comments.push(newComment as CommentDTO);
   }
 
-  if (updateType === 'delete') {
+  if (updateType === UPDATE_CACHE_TYPE.DELETE) {
     const foundPost = posts.find((post) => post.id === interactiveEntityId);
     const newComments = foundPost?.comments.filter((comment) => comment.id !== newComment);
 

@@ -3,6 +3,7 @@ import { useCallback, useMemo } from 'react';
 import client from '@app/utils/authApi';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
 import type {
   CreateCommentResponse,
   CustomAxiosResponse,
@@ -40,7 +41,7 @@ const useCreateComment = () => {
       // Update cache
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updateCommentInCache(oldData, newComment, interactiveEntityId, 'create')
+        updateCommentInCache(oldData, newComment, interactiveEntityId, UPDATE_CACHE_TYPE.CREATE)
       );
     },
   });

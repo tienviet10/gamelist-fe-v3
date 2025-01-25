@@ -50,3 +50,9 @@ export const INITIAL_USER_GAME_LISTS = {
   listOrder: ['planning', 'playing', 'paused', 'completed', 'dropped', 'justAdded'] as ListsOrderType[],
   localListOrder: ['planning', 'playing', 'paused', 'completed', 'dropped', 'justAdded'] as ListsOrderType[],
 };
+
+export const UPDATE_CACHE_TYPE = {
+  CREATE: 'create',
+  DELETE: 'delete',
+  UPDATE: 'update',
+};
