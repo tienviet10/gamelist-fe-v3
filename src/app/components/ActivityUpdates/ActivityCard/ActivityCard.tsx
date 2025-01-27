@@ -3,6 +3,8 @@ import { useState } from 'react';
 import getTimeElapsed from '@app/components/ListActivities/getTimeElapsed';
 import MemoizedPostInput from '@app/components/PostInput';
 import type { PostsDTOResponse, StatusUpdatesDTOResponse } from '@app/constants/global/types';
+import useCreateLike from '@app/services/post/useCreateLike';
+import useCreateUnlike from '@app/services/post/useCreateUnlike';
 import useDeleteComment from '@app/services/post/useDeleteComment';
 
 import LoadMoreButton from './LoadMoreButton';
@@ -20,8 +22,10 @@ function ActivityCard({
 }) {
   const [isCommentVisible, setIsCommentVisible] = useState<boolean>(activity.comments.length > 0);
   const { deleteCommentMutation } = useDeleteComment();
+  const { createLikeMutation } = useCreateLike();
+  const { createUnlikeMutation } = useCreateUnlike();
   const { daysElapsed, hoursElapsed } = getTimeElapsed(activity.createdAt);
-  const isCurrentLiked = activity.likes.some((like) => like.user.username === username);
+  const isCurrentLiked = activity.likes.find((like) => like.user.username === username)?.id;
 
   return (
     <div className={`${styles.activity} ${'text' in activity && styles.postActivity}`}>
@@ -65,13 +69,16 @@ function ActivityCard({
           <button
             onClick={() => {
               if (isCurrentLiked) {
-                // await removeLike(activity.id, activity.__typename as string);
+                createUnlikeMutation({
+                  interactiveEntityId: activity.id,
+                  userId: isCurrentLiked,
+                });
               } else {
-                // await addLike(activity.id, activity.__typename as string);
+                createLikeMutation({ interactiveEntityId: activity.id });
               }
             }}
           >
-            {isCurrentLiked ? <div>Like</div> : <div>Unlike</div>}
+            {isCurrentLiked ? <div>Unlike</div> : <div>Like</div>}
           </button>
           <span className={`${styles.likeCount} ${activity.likes.length === 0 && styles.zeroCount}`}>
             {activity.likes.length}

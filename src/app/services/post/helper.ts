@@ -2,6 +2,7 @@ import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
 import {
   CommentDTO,
   CommentsResponse,
+  LikeDTO,
   OldPostsAndStatusUpdatesDataType,
   PostsDTOResponse,
 } from '@app/constants/global/types';
@@ -119,6 +120,42 @@ export const updateCommentInCache = (
     if (foundPost && typeof newComment !== 'number' && 'hasNextPage' in newComment) {
       foundPost.hasNextCommentPage = newComment.hasNextPage;
       foundPost.comments.push(...newComment.comments);
+    }
+  }
+
+  return newData;
+};
+
+export const updatePostWithLike = (
+  oldData: OldPostsAndStatusUpdatesDataType | undefined,
+  like: LikeDTO | number,
+  interactiveEntityId: number,
+  updateType: UpdateCacheTypeValues
+): OldPostsAndStatusUpdatesDataType | undefined => {
+  if (!oldData) {
+    return undefined;
+  }
+
+  const newData = structuredClone(oldData);
+  const { pages } = newData;
+  const firstPage = pages[0];
+  const { posts } = firstPage.data.postsAndStatusUpdates;
+
+  if (updateType === UPDATE_CACHE_TYPE.UPDATE) {
+    const foundPost = posts.find((post) => post.id === interactiveEntityId);
+
+    if (typeof like !== 'number') {
+      if (typeof like !== 'number') {
+        foundPost?.likes.push(like);
+      }
+    }
+  }
+
+  if (updateType === UPDATE_CACHE_TYPE.DELETE) {
+    const foundPost = posts.find((post) => post.id === interactiveEntityId);
+
+    if (foundPost?.likes) {
+      foundPost.likes = foundPost.likes.filter((item) => item.id !== like);
     }
   }
 
