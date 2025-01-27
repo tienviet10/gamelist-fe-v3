@@ -1,4 +1,4 @@
-type FollowedUserData = {
+export type FollowedUserData = {
   id: number;
   bannerPicture: string;
   userPicture: string;
@@ -13,8 +13,4 @@ type FollowerFollowingListType = {
 
 export type FollowDataType = {
   user: FollowerFollowingListType;
-};
-
-export type UserFollowIdResponse = {
-  user: FollowedUserData;
 };

@@ -14,7 +14,7 @@ export interface ErrorResponse extends AxiosError {
   response: SpringErrorResponse;
 }
 
-interface GeneralResponse {
+export interface GeneralResponse {
   message: string;
   statusCode: number;
   status: string;
@@ -83,7 +83,7 @@ export type LikeDTO = {
   createdAt: string;
 };
 
-type CommentDTO = {
+export type CommentDTO = {
   id: number;
   text: string;
   createdAt: string;
@@ -99,6 +99,21 @@ export type PostsDTOResponse = {
   user: UserBasicDTO;
   likes: LikeDTO[];
   comments: CommentDTO[];
+  hasNextCommentPage: boolean;
+};
+
+export type CommentDTOResponse = {
+  id: number;
+  text: string;
+  createdAt: string;
+  userId: string;
+  likes: LikeDTO[];
+  comments: CommentDTO[];
+};
+
+export type CreateCommentResponse = {
+  comment: CommentDTO;
+  interactiveEntityId: number;
 };
 
 type GameBasicDTO = {
@@ -121,6 +136,7 @@ export type StatusUpdatesDTOResponse = {
   userGame: UserGameBasicDTO;
   likes: LikeDTO[];
   comments: CommentDTO[];
+  hasNextCommentPage: boolean;
 };
 
 export type PostsAndStatusUpdatesData = {
@@ -249,3 +265,19 @@ export interface DropDownOption {
 export type OnChangeCascaderType = (string | number)[] | string | number;
 
 export declare type ArrayElementType<T> = T extends (infer E)[] ? E : T;
+
+export type OldPostsAndStatusUpdatesDataType = {
+  pageParams: number[];
+  pages: PostsAndStatusUpdatesPageType[];
+};
+
+type PostsAndStatusUpdatesPageType = {
+  data: CustomPostStatusResponseType;
+};
+
+export type CommentsResponse = {
+  comments: CommentDTO[];
+  hasNextPage: boolean;
+};
+
+export type CustomCommentsResponse = CustomAxiosResponse<CommentsResponse>;

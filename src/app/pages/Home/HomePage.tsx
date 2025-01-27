@@ -2,6 +2,8 @@ import GamesList from '@app/components/AllGames/GamesList';
 import ContentWrapper from '@app/components/ContentWrapper/ContentWrapper';
 import { useAppSelector } from '@app/store/hooks';
 
+import SwitchButton from './SwitchButton';
+
 import styles from './Home.module.scss';
 
 function HomePage() {
@@ -13,6 +15,7 @@ function HomePage() {
         <div className={`${styles.gamesContainer} ${homeSearchState.view === 'grid' ? null : styles.listsContainer}`}>
           {/* <FiltersWrapper /> */}
           {/* <InfoBar /> */}
+          <SwitchButton />
           <GamesList />
         </div>
       </div>

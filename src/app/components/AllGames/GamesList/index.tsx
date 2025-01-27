@@ -35,7 +35,7 @@ export default function GamesList() {
 
   const fetchNextPage = async () => {
     if (
-      data.status === 'success' &&
+      data.status === REACT_QUERY_STATUS.SUCCESS &&
       (!data.isFetching || !data.isFetchingNextPage) &&
       data.hasNextPage &&
       data.fetchNextPage
@@ -50,7 +50,7 @@ export default function GamesList() {
   }
 
   // TODO: Add Error component
-  if (data.status === 'error') {
+  if (data.status === REACT_QUERY_STATUS.ERROR) {
     return <div>Error here</div>;
   }
 

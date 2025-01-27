@@ -3,7 +3,9 @@ import { useState } from 'react';
 import getTimeElapsed from '@app/components/ListActivities/getTimeElapsed';
 import MemoizedPostInput from '@app/components/PostInput';
 import type { PostsDTOResponse, StatusUpdatesDTOResponse } from '@app/constants/global/types';
+import useDeleteComment from '@app/services/post/useDeleteComment';
 
+import LoadMoreButton from './LoadMoreButton';
 import PostActivity from './PostActivity';
 import StatusUpdateActivity from './StatusUpdateActivity';
 
@@ -16,9 +18,10 @@ function ActivityCard({
   activity: PostsDTOResponse | StatusUpdatesDTOResponse;
   username: string;
 }) {
+  const [isCommentVisible, setIsCommentVisible] = useState<boolean>(activity.comments.length > 0);
+  const { deleteCommentMutation } = useDeleteComment();
   const { daysElapsed, hoursElapsed } = getTimeElapsed(activity.createdAt);
   const isCurrentLiked = activity.likes.some((like) => like.user.username === username);
-  const [isCommentVisible, setIsCommentVisible] = useState<boolean>(activity.comments.length > 0);
 
   return (
     <div className={`${styles.activity} ${'text' in activity && styles.postActivity}`}>
@@ -112,9 +115,11 @@ function ActivityCard({
       <div className={styles.replyContainer} style={{ display: `${isCommentVisible ? 'block' : 'none'}` }}>
         <div className={styles.activityReply}>
           {activity.comments.map((comment) => {
-            const { daysElapsed: commentDaysElapsed, hoursElapsed: commentHoursElapsed } = getTimeElapsed(
-              comment.createdAt
-            );
+            const {
+              daysElapsed: commentDaysElapsed,
+              hoursElapsed: commentHoursElapsed,
+              minutesElapsed: commentMinutesElapsed,
+            } = getTimeElapsed(comment.createdAt);
 
             return (
               <div className={styles.replyList} key={comment.id}>
@@ -131,7 +136,11 @@ function ActivityCard({
                       cursor: `${comment.user.username !== username && 'pointer'}`,
                     }}
                   /> */}
-                  <img alt="Avatar" src={comment.user.userPicture} />
+                  <img
+                    alt="Avatar"
+                    src={comment.user.userPicture}
+                    style={{ width: '50px', height: '50px', borderRadius: '100%' }}
+                  />
                   {comment.user.username && (
                     <a aria-label={comment.user.username} href={`/user/${comment.user.username}`}>
                       {' '}
@@ -173,14 +182,25 @@ function ActivityCard({
                     <button
                       onClick={() => {
                         if (comment.user.username && comment.user.username === username) {
-                          // await handleRemoveComment(comment);
+                          deleteCommentMutation({ commentId: comment.id, interactiveEntityId: activity.id });
                         }
                       }}
                     >
                       Close
                     </button>
                     <div className={styles.time}>
-                      {commentDaysElapsed > 0 ? `${commentDaysElapsed} days` : `${commentHoursElapsed} hours`} ago
+                      {(() => {
+                        if (commentDaysElapsed > 0) {
+                          return `${commentDaysElapsed} days`;
+                        }
+
+                        if (commentHoursElapsed > 0) {
+                          return `${commentHoursElapsed} hours`;
+                        }
+
+                        return `${commentMinutesElapsed} mins`;
+                      })()}{' '}
+                      ago
                     </div>
                   </div>
                 </div>
@@ -192,10 +212,16 @@ function ActivityCard({
               </div>
             );
           })}
+          {activity.hasNextCommentPage && (
+            <LoadMoreButton
+              interactiveEntityId={activity.id}
+              startingId={activity.comments[activity.comments.length - 1].id}
+            />
+          )}
           <MemoizedPostInput
             isComment
             commentId={activity.id}
-            commentType={'text' in activity ? 'post' : 'statusUpdate'}
+            // commentType={'text' in activity ? 'post' : 'statusUpdate'}
           />
         </div>
       </div>

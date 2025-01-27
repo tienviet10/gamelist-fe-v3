@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { CustomAxiosResponse, ErrorResponse } from '@app/constants/global/types';
 import { removeFollowRoute } from '@app/constants/global/urls';
 
-import type { UserFollowIdResponse } from './types';
+import type { FollowedUserData } from './types';
 
 type UserFollowId = {
   userId: number;
@@ -15,7 +15,7 @@ type UserFollowId = {
 const useRemoveFollow = () => {
   const queryClient = useQueryClient();
 
-  const removeFollow = async (params: UserFollowId): Promise<CustomAxiosResponse<UserFollowIdResponse>> =>
+  const removeFollow = async (params: UserFollowId): Promise<CustomAxiosResponse<FollowedUserData>> =>
     client.delete(`/${removeFollowRoute}/${params.userId}`);
 
   const {
@@ -23,7 +23,7 @@ const useRemoveFollow = () => {
     data: removedFollowedUserData,
     error: removeFollowError,
     isError: removedFollowIsError,
-  } = useMutation<CustomAxiosResponse<UserFollowIdResponse>, ErrorResponse, UserFollowId>({
+  } = useMutation<CustomAxiosResponse<FollowedUserData>, ErrorResponse, UserFollowId>({
     mutationFn: removeFollow,
     onSuccess: () => {
       // TODO: Pessimistic update the whole cache -> do pessimistic update for only the unfollowed user

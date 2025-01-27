@@ -1,10 +1,18 @@
 import { useCallback, useMemo } from 'react';
 
 import client from '@app/utils/authApi';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type { CustomAxiosResponse, ErrorResponse, PostsDTOResponse } from '@app/constants/global/types';
+import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
+import type {
+  CustomAxiosResponse,
+  ErrorResponse,
+  OldPostsAndStatusUpdatesDataType,
+  PostsDTOResponse,
+} from '@app/constants/global/types';
 import { postingRoute } from '@app/constants/global/urls';
+
+import { updatePostByPost } from './helper';
 
 type CreatePostParams = {
   text: string;
@@ -14,13 +22,9 @@ type CreatePostResponse = {
   post: PostsDTOResponse;
 };
 
-const useCreatePost = ({
-  onSuccessCallback,
-  onErrorCallback,
-}: {
-  onSuccessCallback?: (data: CustomAxiosResponse<CreatePostResponse>) => void;
-  onErrorCallback?: (error: ErrorResponse) => void;
-}) => {
+const useCreatePost = () => {
+  const queryClient = useQueryClient();
+
   const createPost = useCallback(
     async (params: CreatePostParams): Promise<CustomAxiosResponse<CreatePostResponse>> =>
       client.post(postingRoute, params),
@@ -35,14 +39,13 @@ const useCreatePost = ({
   } = useMutation<CustomAxiosResponse<CreatePostResponse>, ErrorResponse, CreatePostParams>({
     mutationFn: createPost,
     onSuccess: (data) => {
-      if (onSuccessCallback) {
-        onSuccessCallback(data);
-      }
-    },
-    onError: (error) => {
-      if (onErrorCallback) {
-        onErrorCallback(error);
-      }
+      const { post: newPost } = data.data.data;
+
+      // Update cache
+      queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
+      queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
+        updatePostByPost(oldData, newPost, UPDATE_CACHE_TYPE.CREATE)
+      );
     },
   });
 

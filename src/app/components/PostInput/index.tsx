@@ -1,17 +1,26 @@
 import { memo, useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import useCreateComment from '@app/services/post/useCreateComment';
+import useCreatePost from '@app/services/post/useCreatePost';
 
 import styles from './PostInput.module.scss';
 
 type PostInputProps = {
-  commentType?: string;
+  // commentType?: string;
   commentId?: number;
   isComment?: boolean;
 };
 
-function PostInput({ commentType, commentId, isComment }: PostInputProps) {
+function PostInput({
+  // commentType,
+  commentId,
+  isComment,
+}: PostInputProps) {
   const postRef = useRef<HTMLTextAreaElement>(null);
   const [details, setDetails] = useState<string>('');
-  // const { createPostMutation } = usePosts();
+  const { createPostMutation } = useCreatePost();
+  const { createCommentMutation } = useCreateComment();
 
   // const { success, contextHolder, warning } = useNotification();
 
@@ -33,35 +42,34 @@ function PostInput({ commentType, commentId, isComment }: PostInputProps) {
       <div className={styles.postConfirmContainer}>
         <button onClick={() => setDetails('')}>Cancel</button>
         <button
-          onClick={async () => {
-            // if (setPost && createPostMutation && post) {
-            //   createPostMutation(
-            //     { text: post },
-            //     {
-            //       onSuccess: () => {
-            //         success(`You have posted successfully.`);
-            //         setPost('');
-            //       },
-            //       onError: (error) => {
-            //         warning(`Can not post. ${error.message}!`);
-            //       },
-            //     }
-            //   );
-            // } else if (setComment && comment && commentId && commentType) {
-            //   // const response = await addComment(
-            //   //   commentId,
-            //   //   commentType,
-            //   //   comment
-            //   // );
-            //   // if (response?.comment && response?.errors?.length === 0) {
-            //   //   success(`Your comment about has been posted successfully.`);
-            //   // } else {
-            //   //   warning(`Can not post comment. ${response.errors}!`);
-            //   // }
-            //   setComment('');
-            // } else if (setPost && !post) {
-            //   warning(`Please write something to post.`);
-            // }
+          onClick={() => {
+            if (commentId) {
+              createCommentMutation(
+                { interactiveEntityId: commentId.toString(), text: details },
+                {
+                  onSuccess: () => {
+                    toast(`You have commentted successfully.`);
+                  },
+                  onError: (error) => {
+                    toast.warn(`Cannot post. ${error.message}!`);
+                  },
+                }
+              );
+            } else {
+              createPostMutation(
+                { text: details },
+                {
+                  onSuccess: () => {
+                    toast(`You have posted successfully.`);
+                  },
+                  onError: (error) => {
+                    toast.warn(`Can not post. ${error.message}!`);
+                  },
+                }
+              );
+            }
+
+            setDetails('');
           }}
         >
           {isComment ? 'Comment' : 'Post'}
