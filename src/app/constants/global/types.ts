@@ -99,6 +99,7 @@ export type PostsDTOResponse = {
   user: UserBasicDTO;
   likes: LikeDTO[];
   comments: CommentDTO[];
+  hasNextCommentPage: boolean;
 };
 
 export type CommentDTOResponse = {
@@ -135,6 +136,7 @@ export type StatusUpdatesDTOResponse = {
   userGame: UserGameBasicDTO;
   likes: LikeDTO[];
   comments: CommentDTO[];
+  hasNextCommentPage: boolean;
 };
 
 export type PostsAndStatusUpdatesData = {
@@ -272,3 +274,10 @@ export type OldPostsAndStatusUpdatesDataType = {
 type PostsAndStatusUpdatesPageType = {
   data: CustomPostStatusResponseType;
 };
+
+export type CommentsResponse = {
+  comments: CommentDTO[];
+  hasNextPage: boolean;
+};
+
+export type CustomCommentsResponse = CustomAxiosResponse<CommentsResponse>;

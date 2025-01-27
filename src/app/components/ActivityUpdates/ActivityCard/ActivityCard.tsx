@@ -5,6 +5,7 @@ import MemoizedPostInput from '@app/components/PostInput';
 import type { PostsDTOResponse, StatusUpdatesDTOResponse } from '@app/constants/global/types';
 import useDeleteComment from '@app/services/post/useDeleteComment';
 
+import LoadMoreButton from './LoadMoreButton';
 import PostActivity from './PostActivity';
 import StatusUpdateActivity from './StatusUpdateActivity';
 
@@ -17,10 +18,10 @@ function ActivityCard({
   activity: PostsDTOResponse | StatusUpdatesDTOResponse;
   username: string;
 }) {
-  const { daysElapsed, hoursElapsed } = getTimeElapsed(activity.createdAt);
-  const isCurrentLiked = activity.likes.some((like) => like.user.username === username);
   const [isCommentVisible, setIsCommentVisible] = useState<boolean>(activity.comments.length > 0);
   const { deleteCommentMutation } = useDeleteComment();
+  const { daysElapsed, hoursElapsed } = getTimeElapsed(activity.createdAt);
+  const isCurrentLiked = activity.likes.some((like) => like.user.username === username);
 
   return (
     <div className={`${styles.activity} ${'text' in activity && styles.postActivity}`}>
@@ -211,10 +212,16 @@ function ActivityCard({
               </div>
             );
           })}
+          {activity.hasNextCommentPage && (
+            <LoadMoreButton
+              interactiveEntityId={activity.id}
+              startingId={activity.comments[activity.comments.length - 1].id}
+            />
+          )}
           <MemoizedPostInput
             isComment
             commentId={activity.id}
-            commentType={'text' in activity ? 'post' : 'statusUpdate'}
+            // commentType={'text' in activity ? 'post' : 'statusUpdate'}
           />
         </div>
       </div>

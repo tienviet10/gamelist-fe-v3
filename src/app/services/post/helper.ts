@@ -1,5 +1,10 @@
 import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
-import { CommentDTO, OldPostsAndStatusUpdatesDataType, PostsDTOResponse } from '@app/constants/global/types';
+import {
+  CommentDTO,
+  CommentsResponse,
+  OldPostsAndStatusUpdatesDataType,
+  PostsDTOResponse,
+} from '@app/constants/global/types';
 
 type UpdateCacheTypeValues = (typeof UPDATE_CACHE_TYPE)[keyof typeof UPDATE_CACHE_TYPE];
 
@@ -80,7 +85,7 @@ export const updatePostByPost = (
 
 export const updateCommentInCache = (
   oldData: OldPostsAndStatusUpdatesDataType | undefined,
-  newComment: CommentDTO | number,
+  newComment: CommentDTO | number | CommentsResponse,
   interactiveEntityId: number,
   updateType: UpdateCacheTypeValues
 ): OldPostsAndStatusUpdatesDataType | undefined => {
@@ -96,7 +101,7 @@ export const updateCommentInCache = (
   if (updateType === UPDATE_CACHE_TYPE.CREATE) {
     const foundPost = posts.find((post) => post.id === interactiveEntityId);
 
-    foundPost?.comments.push(newComment as CommentDTO);
+    foundPost?.comments.unshift(newComment as CommentDTO);
   }
 
   if (updateType === UPDATE_CACHE_TYPE.DELETE) {
@@ -105,6 +110,15 @@ export const updateCommentInCache = (
 
     if (foundPost) {
       foundPost.comments = newComments || [];
+    }
+  }
+
+  if (updateType === UPDATE_CACHE_TYPE.UPDATE) {
+    const foundPost = posts.find((post) => post.id === interactiveEntityId);
+
+    if (foundPost && typeof newComment !== 'number' && 'hasNextPage' in newComment) {
+      foundPost.hasNextCommentPage = newComment.hasNextPage;
+      foundPost.comments.push(...newComment.comments);
     }
   }
 

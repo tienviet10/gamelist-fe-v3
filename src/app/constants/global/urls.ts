@@ -15,6 +15,7 @@ export const forumRoute = `${socialRoute}/${apiV1}/${interactiveEntity}/forum-pa
 export const userSocialRoute = `${socialRoute}/${apiV1}/${interactiveEntity}/user-social/pageable`;
 export const postingRoute = `${socialRoute}/${apiV1}/posts`;
 export const commentRoute = `${socialRoute}/${apiV1}/comments`;
+export const getNextCommentsRoute = `${socialRoute}/${apiV1}/comments/pageable`;
 
 export const userRoute = 'user-service';
 export const userInfoRoute = `${userRoute}/${apiV1}/user/userinfo`;

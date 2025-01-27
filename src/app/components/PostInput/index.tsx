@@ -7,12 +7,16 @@ import useCreatePost from '@app/services/post/useCreatePost';
 import styles from './PostInput.module.scss';
 
 type PostInputProps = {
-  commentType?: string;
+  // commentType?: string;
   commentId?: number;
   isComment?: boolean;
 };
 
-function PostInput({ commentType, commentId, isComment }: PostInputProps) {
+function PostInput({
+  // commentType,
+  commentId,
+  isComment,
+}: PostInputProps) {
   const postRef = useRef<HTMLTextAreaElement>(null);
   const [details, setDetails] = useState<string>('');
   const { createPostMutation } = useCreatePost();
