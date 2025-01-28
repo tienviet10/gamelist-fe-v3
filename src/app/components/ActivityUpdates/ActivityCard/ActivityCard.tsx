@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 
 import getTimeElapsed from '@app/components/ListActivities/getTimeElapsed';
 import MemoizedPostInput from '@app/components/PostInput';
@@ -26,6 +26,8 @@ function ActivityCard({
   const { createUnlikeMutation } = useCreateUnlike();
   const { daysElapsed, hoursElapsed } = getTimeElapsed(activity.createdAt);
   const isCurrentLiked = activity.likes.find((like) => like.user.username === username)?.id;
+  const lastCommentId = activity.comments[activity.comments.length - 1]?.id;
+  const uniqueCommentId = useId();
 
   return (
     <div className={`${styles.activity} ${'text' in activity && styles.postActivity}`}>
@@ -130,7 +132,7 @@ function ActivityCard({
             } = getTimeElapsed(comment.createdAt);
 
             return (
-              <div className={styles.replyList} key={comment.id}>
+              <div className={styles.replyList} key={comment.id + uniqueCommentId}>
                 <div className={styles.replyAvatar}>
                   {/* <Avatar
                     onClick={async () => {
@@ -225,11 +227,7 @@ function ActivityCard({
             );
           })}
           {activity.hasNextCommentPage && (
-            <LoadMoreButton
-              interactiveEntityId={activity.id}
-              page={activity.page}
-              startingId={activity.comments[activity.comments.length - 1].id}
-            />
+            <LoadMoreButton interactiveEntityId={activity.id} page={activity.page} startingId={lastCommentId} />
           )}
           <MemoizedPostInput
             isComment

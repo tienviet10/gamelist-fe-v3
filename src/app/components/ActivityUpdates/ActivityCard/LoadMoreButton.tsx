@@ -17,27 +17,27 @@ function LoadMoreButton({
   page: number;
 }) {
   const queryClient = useQueryClient();
-  const [buttonActivate, setButtonActivate] = useState(false);
-  const { commentsData } = useGetComment({ startingId, interactiveEntityId, buttonActivate });
+  const [buttonActivate, setButtonActivate] = useState(-1);
+  const { commentsData, commentsDataIsLoading } = useGetComment({ startingId, interactiveEntityId, buttonActivate });
 
   const modifiedCache = useCallback(
-    (newData: CustomCommentsResponse) => {
+    (newData: CustomCommentsResponse, currentPage: number) => {
+      setButtonActivate(-1);
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updateCommentInCache(oldData, newData?.data?.data, interactiveEntityId, page, UPDATE_CACHE_TYPE.UPDATE)
+        updateCommentInCache(oldData, newData?.data?.data, interactiveEntityId, currentPage, UPDATE_CACHE_TYPE.UPDATE)
       );
-      setButtonActivate(false);
     },
-    [interactiveEntityId, page, queryClient]
+    [interactiveEntityId, queryClient]
   );
 
   useEffect(() => {
-    if (commentsData) {
-      modifiedCache(commentsData);
+    if (!commentsDataIsLoading && commentsData && buttonActivate === page) {
+      modifiedCache(commentsData, buttonActivate);
     }
-  }, [commentsData, modifiedCache]);
+  }, [buttonActivate, commentsData, commentsDataIsLoading, modifiedCache, page]);
 
-  return <button onClick={() => setButtonActivate(true)}>Load More</button>;
+  return <button onClick={() => setButtonActivate(page)}>Load More</button>;
 }
 
 export default LoadMoreButton;

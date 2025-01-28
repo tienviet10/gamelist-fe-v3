@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { InView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 
@@ -11,6 +12,7 @@ import styles from '@app/components/ActivityUpdates/ActivitiesUpdates.module.scs
 function ActivitiesUpdates({ postType = '' }: { postType?: string }) {
   // const [socials, setSocials] = useState<(PostsDTOResponse | StatusUpdatesDTOResponse)[]>([]);
   const userState = useAppSelector((state) => state.user);
+  const uniqueActivityId = useId();
 
   const {
     postsAndStatusUpdatesIsLoading,
@@ -40,7 +42,7 @@ function ActivitiesUpdates({ postType = '' }: { postType?: string }) {
     <div className={styles.activitiesUpdatesContainer}>
       {socials.length > 0 &&
         socials.map((activity) => (
-          <ActivityCard activity={activity} key={activity?.id} username={userState?.user?.username} />
+          <ActivityCard activity={activity} key={activity.id + uniqueActivityId} username={userState?.user?.username} />
         ))}
       {isFetchingNextPage ? 'Loading more activities...' : null}
       <InView
