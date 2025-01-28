@@ -16,6 +16,7 @@ import { updatePostWithLike } from './helper';
 
 type CreateLikeBody = {
   interactiveEntityId: number;
+  page: number;
 };
 
 const useCreateLike = () => {
@@ -39,7 +40,7 @@ const useCreateLike = () => {
       // Update cache
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updatePostWithLike(oldData, like, params.interactiveEntityId, UPDATE_CACHE_TYPE.UPDATE)
+        updatePostWithLike(oldData, like, params.interactiveEntityId, params.page, UPDATE_CACHE_TYPE.UPDATE)
       );
     },
   });

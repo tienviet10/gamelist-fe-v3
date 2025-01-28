@@ -7,7 +7,15 @@ import type { CustomCommentsResponse, OldPostsAndStatusUpdatesDataType } from '@
 import { updateCommentInCache } from '@app/services/post/helper';
 import useGetComment from '@app/services/post/useGetComment';
 
-function LoadMoreButton({ startingId, interactiveEntityId }: { startingId: number; interactiveEntityId: number }) {
+function LoadMoreButton({
+  startingId,
+  interactiveEntityId,
+  page,
+}: {
+  startingId: number;
+  interactiveEntityId: number;
+  page: number;
+}) {
   const queryClient = useQueryClient();
   const [buttonActivate, setButtonActivate] = useState(false);
   const { commentsData } = useGetComment({ startingId, interactiveEntityId, buttonActivate });
@@ -16,11 +24,11 @@ function LoadMoreButton({ startingId, interactiveEntityId }: { startingId: numbe
     (newData: CustomCommentsResponse) => {
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updateCommentInCache(oldData, newData?.data?.data, interactiveEntityId, UPDATE_CACHE_TYPE.UPDATE)
+        updateCommentInCache(oldData, newData?.data?.data, interactiveEntityId, page, UPDATE_CACHE_TYPE.UPDATE)
       );
       setButtonActivate(false);
     },
-    [interactiveEntityId, queryClient]
+    [interactiveEntityId, page, queryClient]
   );
 
   useEffect(() => {

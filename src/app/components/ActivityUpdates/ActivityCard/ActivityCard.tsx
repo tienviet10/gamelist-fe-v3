@@ -2,7 +2,12 @@ import { useState } from 'react';
 
 import getTimeElapsed from '@app/components/ListActivities/getTimeElapsed';
 import MemoizedPostInput from '@app/components/PostInput';
-import type { PostsDTOResponse, StatusUpdatesDTOResponse } from '@app/constants/global/types';
+import type {
+  PostsDTOResponse,
+  PostsDTOResponseWithPage,
+  StatusUpdatesDTOResponse,
+  StatusUpdatesDTOResponseWithPage,
+} from '@app/constants/global/types';
 import useCreateLike from '@app/services/post/useCreateLike';
 import useCreateUnlike from '@app/services/post/useCreateUnlike';
 import useDeleteComment from '@app/services/post/useDeleteComment';
@@ -17,7 +22,7 @@ function ActivityCard({
   activity,
   username,
 }: {
-  activity: PostsDTOResponse | StatusUpdatesDTOResponse;
+  activity: PostsDTOResponseWithPage | StatusUpdatesDTOResponseWithPage;
   username: string;
 }) {
   const [isCommentVisible, setIsCommentVisible] = useState<boolean>(activity.comments.length > 0);
@@ -72,9 +77,10 @@ function ActivityCard({
                 createUnlikeMutation({
                   interactiveEntityId: activity.id,
                   userId: isCurrentLiked,
+                  page: activity.page,
                 });
               } else {
-                createLikeMutation({ interactiveEntityId: activity.id });
+                createLikeMutation({ interactiveEntityId: activity.id, page: activity.page });
               }
             }}
           >
@@ -189,7 +195,11 @@ function ActivityCard({
                     <button
                       onClick={() => {
                         if (comment.user.username && comment.user.username === username) {
-                          deleteCommentMutation({ commentId: comment.id, interactiveEntityId: activity.id });
+                          deleteCommentMutation({
+                            commentId: comment.id,
+                            interactiveEntityId: activity.id,
+                            page: activity.page,
+                          });
                         }
                       }}
                     >
@@ -222,6 +232,7 @@ function ActivityCard({
           {activity.hasNextCommentPage && (
             <LoadMoreButton
               interactiveEntityId={activity.id}
+              page={activity.page}
               startingId={activity.comments[activity.comments.length - 1].id}
             />
           )}
@@ -229,6 +240,7 @@ function ActivityCard({
             isComment
             commentId={activity.id}
             // commentType={'text' in activity ? 'post' : 'statusUpdate'}
+            page={activity.page}
           />
         </div>
       </div>

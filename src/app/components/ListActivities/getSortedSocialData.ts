@@ -1,25 +1,29 @@
 import { InfiniteData } from '@tanstack/react-query';
 
-import type { PostsDTOResponse, PostStatusResponseType, StatusUpdatesDTOResponse } from '@app/constants/global/types';
+import type {
+  PostsDTOResponseWithPage,
+  PostStatusResponseType,
+  StatusUpdatesDTOResponseWithPage,
+} from '@app/constants/global/types';
 
 export type PostsAndStatusUpdatesType = InfiniteData<PostStatusResponseType['data']>;
 
 const getSortedSocialData = (postsAndStatusUpdatesPages: PostsAndStatusUpdatesType) => {
   const socialData: {
-    posts: PostsDTOResponse[];
-    statusUpdates: StatusUpdatesDTOResponse[];
+    posts: PostsDTOResponseWithPage[];
+    statusUpdates: StatusUpdatesDTOResponseWithPage[];
   } = (postsAndStatusUpdatesPages?.pages || []).reduce(
-    (acc, curr) => {
+    (acc, curr, idx) => {
       const { posts, statusUpdates } = curr.data.postsAndStatusUpdates;
 
       return {
-        posts: [...acc.posts, ...posts],
-        statusUpdates: [...acc.statusUpdates, ...statusUpdates],
+        posts: [...acc.posts, ...posts.map((item) => ({ ...item, page: idx }))],
+        statusUpdates: [...acc.statusUpdates, ...statusUpdates.map((item) => ({ ...item, page: idx }))],
       };
     },
     { posts: [], statusUpdates: [] } as {
-      posts: PostsDTOResponse[];
-      statusUpdates: StatusUpdatesDTOResponse[];
+      posts: PostsDTOResponseWithPage[];
+      statusUpdates: StatusUpdatesDTOResponseWithPage[];
     }
   );
 

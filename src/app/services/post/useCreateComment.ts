@@ -17,6 +17,7 @@ import { updateCommentInCache } from './helper';
 type CreateCommentParams = {
   text: string;
   interactiveEntityId: string;
+  page: number;
 };
 
 const useCreateComment = () => {
@@ -35,13 +36,13 @@ const useCreateComment = () => {
     isError: createCommentIsError,
   } = useMutation<CustomAxiosResponse<CreateCommentResponse>, ErrorResponse, CreateCommentParams>({
     mutationFn: createComment,
-    onSuccess: (data) => {
+    onSuccess: (data, val) => {
       const { comment: newComment, interactiveEntityId } = data.data.data;
 
       // Update cache
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updateCommentInCache(oldData, newComment, interactiveEntityId, UPDATE_CACHE_TYPE.CREATE)
+        updateCommentInCache(oldData, newComment, interactiveEntityId, val.page, UPDATE_CACHE_TYPE.CREATE)
       );
     },
   });

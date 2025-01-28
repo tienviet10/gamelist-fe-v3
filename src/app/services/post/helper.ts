@@ -88,6 +88,7 @@ export const updateCommentInCache = (
   oldData: OldPostsAndStatusUpdatesDataType | undefined,
   newComment: CommentDTO | number | CommentsResponse,
   interactiveEntityId: number,
+  page: number | null,
   updateType: UpdateCacheTypeValues
 ): OldPostsAndStatusUpdatesDataType | undefined => {
   if (!oldData) {
@@ -96,7 +97,7 @@ export const updateCommentInCache = (
 
   const newData = structuredClone(oldData);
   const { pages } = newData;
-  const firstPage = pages[0];
+  const firstPage = pages[page || 0];
   const { posts } = firstPage.data.postsAndStatusUpdates;
 
   if (updateType === UPDATE_CACHE_TYPE.CREATE) {
@@ -130,6 +131,7 @@ export const updatePostWithLike = (
   oldData: OldPostsAndStatusUpdatesDataType | undefined,
   like: LikeDTO | number,
   interactiveEntityId: number,
+  page: number | null,
   updateType: UpdateCacheTypeValues
 ): OldPostsAndStatusUpdatesDataType | undefined => {
   if (!oldData) {
@@ -138,7 +140,7 @@ export const updatePostWithLike = (
 
   const newData = structuredClone(oldData);
   const { pages } = newData;
-  const firstPage = pages[0];
+  const firstPage = pages[page || 0];
   const { posts } = firstPage.data.postsAndStatusUpdates;
 
   if (updateType === UPDATE_CACHE_TYPE.UPDATE) {

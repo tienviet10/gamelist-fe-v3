@@ -285,3 +285,11 @@ export type CustomCommentsResponse = CustomAxiosResponse<CommentsResponse>;
 export type CreateLikeResponse = {
   like: LikeDTO;
 };
+
+export type PostsDTOResponseWithPage = PostsDTOResponse & {
+  page: number;
+};
+
+export type StatusUpdatesDTOResponseWithPage = StatusUpdatesDTOResponse & {
+  page: number;
+};

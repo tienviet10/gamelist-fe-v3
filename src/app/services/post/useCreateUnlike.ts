@@ -18,6 +18,7 @@ import { updatePostWithLike } from './helper';
 type CreateUnlikeBody = {
   interactiveEntityId: number;
   userId?: number;
+  page: number;
 };
 
 interface DeleteUnlikeResponse extends AxiosResponse {
@@ -43,7 +44,13 @@ const useCreateUnlike = () => {
     onSuccess: (_, params) => {
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updatePostWithLike(oldData, params.userId || 0, params.interactiveEntityId, UPDATE_CACHE_TYPE.DELETE)
+        updatePostWithLike(
+          oldData,
+          params.userId || 0,
+          params.interactiveEntityId,
+          params.page,
+          UPDATE_CACHE_TYPE.DELETE
+        )
       );
     },
   });
