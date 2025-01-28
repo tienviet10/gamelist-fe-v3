@@ -2,12 +2,7 @@ import { useState } from 'react';
 
 import getTimeElapsed from '@app/components/ListActivities/getTimeElapsed';
 import MemoizedPostInput from '@app/components/PostInput';
-import type {
-  PostsDTOResponse,
-  PostsDTOResponseWithPage,
-  StatusUpdatesDTOResponse,
-  StatusUpdatesDTOResponseWithPage,
-} from '@app/constants/global/types';
+import type { PostsDTOResponseWithPage, StatusUpdatesDTOResponseWithPage } from '@app/constants/global/types';
 import useCreateLike from '@app/services/post/useCreateLike';
 import useCreateUnlike from '@app/services/post/useCreateUnlike';
 import useDeleteComment from '@app/services/post/useDeleteComment';
