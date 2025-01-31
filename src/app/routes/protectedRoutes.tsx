@@ -8,7 +8,6 @@ import {
   socialUserProfileRoute,
   userProfileRoute,
 } from '@app/constants/global/urls';
-import GameDetail from '@app/pages/GameDetail/GameDetail';
 import Forum from '@app/pages/Social';
 
 import UserProfile from '../pages/UserProfile/UserProfile';
@@ -34,16 +33,6 @@ export const protectedRoutes: RouteObject[] = [
       {
         path: '/social',
         element: <Forum />,
-      },
-    ],
-  },
-  {
-    path: '/game-detail',
-    element: <ProtectedRoute />,
-    children: [
-      {
-        path: '/game-detail/:id/:name',
-        element: <GameDetail />,
       },
     ],
   },

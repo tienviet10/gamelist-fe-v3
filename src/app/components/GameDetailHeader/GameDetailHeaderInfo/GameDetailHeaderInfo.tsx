@@ -7,7 +7,7 @@ import useLike from '@app/components/GameDetailHeader/GameDetailHeaderInfo/useLi
 import { CustomAGameResponse } from '@app/constants/global/types';
 import { useAppSelector } from '@app/store/hooks';
 
-import styles from './GameDetailHeaderInfo.module.scss';
+import styles from '@app/components/GameDetailHeader/GameDetailHeaderInfo/GameDetailHeaderInfo.module.scss';
 
 function GameDetailHeaderInfoTemp({ gameId }: { gameId: string }) {
   const queryClient = useQueryClient();
@@ -162,7 +162,6 @@ function GameDetailHeaderInfoTemp({ gameId }: { gameId: string }) {
           </div>
         </div>
       </div>
-      {/* {handGameContextHolder} */}
     </div>
   );
 }

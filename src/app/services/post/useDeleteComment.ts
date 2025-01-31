@@ -1,28 +1,18 @@
 import { useCallback, useMemo } from 'react';
-import { AxiosResponse } from 'axios';
 
 import client from '@app/utils/authApi';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
-import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
-import type { ErrorResponse, GeneralResponse, OldPostsAndStatusUpdatesDataType } from '@app/constants/global/types';
+import type { DeleteCommentResponse, DeleteParams, ErrorResponse } from '@app/constants/global/types';
 import { commentRoute } from '@app/constants/global/urls';
 
-import { updateCommentInCache } from './helper';
-
-interface DeleteCommentResponse extends AxiosResponse {
-  data: GeneralResponse;
-}
-
-type DeleteParams = {
-  commentId: number;
-  interactiveEntityId: number;
-  page: number;
-};
-
-const useDeleteComment = () => {
-  const queryClient = useQueryClient();
-
+const useDeleteComment = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess?: (data: DeleteCommentResponse, params: DeleteParams) => void;
+  onError?: (error: ErrorResponse) => void;
+}) => {
   const deleteComment = useCallback(
     async (params: DeleteParams): Promise<DeleteCommentResponse> =>
       client.delete(`${commentRoute}/${params.commentId}`),
@@ -36,14 +26,8 @@ const useDeleteComment = () => {
     isError: deleteCommentIsError,
   } = useMutation<DeleteCommentResponse, ErrorResponse, DeleteParams>({
     mutationFn: deleteComment,
-    onSuccess: (_, val) => {
-      const { commentId, interactiveEntityId } = val;
-
-      queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
-      queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updateCommentInCache(oldData, commentId, interactiveEntityId, val.page, UPDATE_CACHE_TYPE.DELETE)
-      );
-    },
+    onSuccess,
+    onError,
   });
 
   const memoizedReturnedValues = useMemo(
