@@ -3,11 +3,11 @@ import { useId, useState } from 'react';
 import getTimeElapsed from '@app/components/ListActivities/getTimeElapsed';
 import MemoizedPostInput from '@app/components/PostInput';
 import type { PostsDTOResponseWithPage, StatusUpdatesDTOResponseWithPage } from '@app/constants/global/types';
-import useDeleteComment from '@app/services/post/useDeleteComment';
 
 import LoadMoreButton from './LoadMoreButton';
 import PostActivity from './PostActivity';
 import StatusUpdateActivity from './StatusUpdateActivity';
+import useComment from './useComment';
 import useLike from './useLike';
 
 import styles from '../ActivitiesUpdates.module.scss';
@@ -20,7 +20,7 @@ function ActivityCard({
   username: string;
 }) {
   const [isCommentVisible, setIsCommentVisible] = useState<boolean>(activity.comments.length > 0);
-  const { deleteCommentMutation } = useDeleteComment();
+  const { deleteCommentMutation } = useComment();
   const { createLikeMutation, createUnlikeMutation } = useLike();
   const { daysElapsed, hoursElapsed } = getTimeElapsed(activity.createdAt);
   const isCurrentLiked = activity.likes.find((like) => like.user.username === username)?.id;

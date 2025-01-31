@@ -310,3 +310,27 @@ export type CreateUnlikeBody = {
 export interface DeleteUnlikeResponse extends AxiosResponse {
   data: GeneralResponse;
 }
+
+export type CreateCommentParams = {
+  text: string;
+  interactiveEntityId: string;
+  page: number;
+};
+
+export type CreatePostParams = {
+  text: string;
+};
+
+export type CreatePostResponse = {
+  post: PostsDTOResponse;
+};
+
+export type DeleteParams = {
+  commentId: number;
+  interactiveEntityId: number;
+  page: number;
+};
+
+export interface DeleteCommentResponse extends AxiosResponse {
+  data: GeneralResponse;
+}

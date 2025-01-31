@@ -1,8 +1,8 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import useCreateComment from '@app/services/post/useCreateComment';
-import useCreatePost from '@app/services/post/useCreatePost';
+import useComment from './useComment';
+import usePost from './usePost';
 
 import styles from './PostInput.module.scss';
 
@@ -21,8 +21,8 @@ function PostInput({
 }: PostInputProps) {
   const postRef = useRef<HTMLTextAreaElement>(null);
   const [details, setDetails] = useState<string>('');
-  const { createPostMutation } = useCreatePost();
-  const { createCommentMutation } = useCreateComment();
+  const { createPostMutation } = usePost();
+  const { createCommentMutation } = useComment();
 
   // const { success, contextHolder, warning } = useNotification();
 

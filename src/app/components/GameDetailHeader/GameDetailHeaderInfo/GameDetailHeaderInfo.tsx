@@ -162,7 +162,6 @@ function GameDetailHeaderInfoTemp({ gameId }: { gameId: string }) {
           </div>
         </div>
       </div>
-      {/* {handGameContextHolder} */}
     </div>
   );
 }

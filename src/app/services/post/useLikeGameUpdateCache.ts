@@ -12,7 +12,7 @@ import {
 
 import { updateLikeInGameCache } from './helper';
 
-const useLikeGameUpdate = () => {
+const useLikeGameUpdateCache = () => {
   const queryClient = useQueryClient();
 
   const processLikeCacheInGame = useCallback(
@@ -29,4 +29,4 @@ const useLikeGameUpdate = () => {
   return { processLikeCacheInGame };
 };
 
-export default useLikeGameUpdate;
+export default useLikeGameUpdateCache;

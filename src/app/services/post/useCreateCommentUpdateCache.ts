@@ -4,30 +4,30 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
 import {
-  CreateLikeBody,
-  CreateLikeResponse,
+  CreateCommentParams,
+  CreateCommentResponse,
   CustomAxiosResponse,
   OldPostsAndStatusUpdatesDataType,
 } from '@app/constants/global/types';
 
-import { updatePostWithLike } from './helper';
+import { updateCommentInCache } from './helper';
 
-const useLikePostUpdate = () => {
+const useCreateCommentUpdateCache = () => {
   const queryClient = useQueryClient();
 
-  const processLikeCacheInPost = useCallback(
-    (data: CustomAxiosResponse<CreateLikeResponse>, params: CreateLikeBody) => {
-      const { like } = data.data.data;
+  const processCreateCommentCache = useCallback(
+    (data: CustomAxiosResponse<CreateCommentResponse>, val: CreateCommentParams) => {
+      const { comment: newComment, interactiveEntityId } = data.data.data;
 
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updatePostWithLike(oldData, like, params.interactiveEntityId, params.page || null, UPDATE_CACHE_TYPE.UPDATE)
+        updateCommentInCache(oldData, newComment, interactiveEntityId, val.page, UPDATE_CACHE_TYPE.CREATE)
       );
     },
     [queryClient]
   );
 
-  return { processLikeCacheInPost };
+  return { processCreateCommentCache };
 };
 
-export default useLikePostUpdate;
+export default useCreateCommentUpdateCache;

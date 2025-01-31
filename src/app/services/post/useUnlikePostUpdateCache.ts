@@ -12,7 +12,7 @@ import {
 
 import { updatePostWithLike } from './helper';
 
-const useUnlikePostUpdate = () => {
+const useUnlikePostUpdateCache = () => {
   const queryClient = useQueryClient();
 
   const processUnlikeCacheInPost = useCallback(
@@ -34,4 +34,4 @@ const useUnlikePostUpdate = () => {
   return { processUnlikeCacheInPost };
 };
 
-export default useUnlikePostUpdate;
+export default useUnlikePostUpdateCache;

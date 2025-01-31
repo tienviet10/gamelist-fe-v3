@@ -1,28 +1,23 @@
 import { useCallback, useMemo } from 'react';
 
 import client from '@app/utils/authApi';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
-import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
 import type {
+  CreateCommentParams,
   CreateCommentResponse,
   CustomAxiosResponse,
   ErrorResponse,
-  OldPostsAndStatusUpdatesDataType,
 } from '@app/constants/global/types';
 import { commentRoute } from '@app/constants/global/urls';
 
-import { updateCommentInCache } from './helper';
-
-type CreateCommentParams = {
-  text: string;
-  interactiveEntityId: string;
-  page: number;
-};
-
-const useCreateComment = () => {
-  const queryClient = useQueryClient();
-
+const useCreateComment = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess?: (data: CustomAxiosResponse<CreateCommentResponse>, params: CreateCommentParams) => void;
+  onError?: (error: ErrorResponse) => void;
+}) => {
   const createComment = useCallback(
     async (params: CreateCommentParams): Promise<CustomAxiosResponse<CreateCommentResponse>> =>
       client.post(commentRoute, params),
@@ -36,14 +31,8 @@ const useCreateComment = () => {
     isError: createCommentIsError,
   } = useMutation<CustomAxiosResponse<CreateCommentResponse>, ErrorResponse, CreateCommentParams>({
     mutationFn: createComment,
-    onSuccess: (data, val) => {
-      const { comment: newComment, interactiveEntityId } = data.data.data;
-
-      queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
-      queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updateCommentInCache(oldData, newComment, interactiveEntityId, val.page, UPDATE_CACHE_TYPE.CREATE)
-      );
-    },
+    onSuccess,
+    onError,
   });
 
   const memoizedReturnedValues = useMemo(

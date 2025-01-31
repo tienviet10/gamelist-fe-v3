@@ -22,8 +22,6 @@ function Login() {
   const dispatch = useAppDispatch();
   const { signInMutation, signInResponse, signInError } = useAuth();
 
-  // TODO: display error message
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
