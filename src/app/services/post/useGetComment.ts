@@ -13,7 +13,7 @@ const useGetComment = ({
 }: {
   startingId: number;
   interactiveEntityId: number;
-  buttonActivate: boolean;
+  buttonActivate: number;
 }) => {
   const getComments = useCallback(
     async (): Promise<CustomCommentsResponse> =>
@@ -26,9 +26,9 @@ const useGetComment = ({
     isLoading: commentsDataIsLoading,
     refetch: refetchCommentData,
   } = useQuery<CustomCommentsResponse, ErrorResponse>({
-    queryKey: ['comments'],
+    queryKey: ['comments', startingId, interactiveEntityId],
     queryFn: getComments,
-    enabled: buttonActivate,
+    enabled: buttonActivate !== -1,
   });
 
   const memoizedReturnedValues = useMemo(

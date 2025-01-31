@@ -10,12 +10,14 @@ type PostInputProps = {
   // commentType?: string;
   commentId?: number;
   isComment?: boolean;
+  page?: number;
 };
 
 function PostInput({
   // commentType,
   commentId,
   isComment,
+  page,
 }: PostInputProps) {
   const postRef = useRef<HTMLTextAreaElement>(null);
   const [details, setDetails] = useState<string>('');
@@ -45,7 +47,7 @@ function PostInput({
           onClick={() => {
             if (commentId) {
               createCommentMutation(
-                { interactiveEntityId: commentId.toString(), text: details },
+                { interactiveEntityId: commentId.toString(), text: details, page: page || 0 },
                 {
                   onSuccess: () => {
                     toast(`You have commentted successfully.`);

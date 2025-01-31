@@ -281,3 +281,32 @@ export type CommentsResponse = {
 };
 
 export type CustomCommentsResponse = CustomAxiosResponse<CommentsResponse>;
+
+export type CreateLikeResponse = {
+  like: LikeDTO;
+};
+
+export type PostsDTOResponseWithPage = PostsDTOResponse & {
+  page: number;
+};
+
+export type StatusUpdatesDTOResponseWithPage = StatusUpdatesDTOResponse & {
+  page: number;
+};
+
+export type CustomAGameResponse = CustomAxiosResponse<{ getGameById: Game }>;
+
+export type CreateLikeBody = {
+  interactiveEntityId: number;
+  page?: number;
+};
+
+export type CreateUnlikeBody = {
+  interactiveEntityId: number;
+  userId?: number;
+  page?: number;
+};
+
+export interface DeleteUnlikeResponse extends AxiosResponse {
+  data: GeneralResponse;
+}

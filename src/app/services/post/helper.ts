@@ -2,6 +2,8 @@ import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
 import {
   CommentDTO,
   CommentsResponse,
+  CustomAGameResponse,
+  LikeDTO,
   OldPostsAndStatusUpdatesDataType,
   PostsDTOResponse,
 } from '@app/constants/global/types';
@@ -87,6 +89,7 @@ export const updateCommentInCache = (
   oldData: OldPostsAndStatusUpdatesDataType | undefined,
   newComment: CommentDTO | number | CommentsResponse,
   interactiveEntityId: number,
+  page: number | null,
   updateType: UpdateCacheTypeValues
 ): OldPostsAndStatusUpdatesDataType | undefined => {
   if (!oldData) {
@@ -95,7 +98,7 @@ export const updateCommentInCache = (
 
   const newData = structuredClone(oldData);
   const { pages } = newData;
-  const firstPage = pages[0];
+  const firstPage = pages[page || 0];
   const { posts } = firstPage.data.postsAndStatusUpdates;
 
   if (updateType === UPDATE_CACHE_TYPE.CREATE) {
@@ -120,6 +123,62 @@ export const updateCommentInCache = (
       foundPost.hasNextCommentPage = newComment.hasNextPage;
       foundPost.comments.push(...newComment.comments);
     }
+  }
+
+  return newData;
+};
+
+export const updatePostWithLike = (
+  oldData: OldPostsAndStatusUpdatesDataType | undefined,
+  like: LikeDTO | number,
+  interactiveEntityId: number,
+  page: number | null,
+  updateType: UpdateCacheTypeValues
+): OldPostsAndStatusUpdatesDataType | undefined => {
+  if (!oldData) {
+    return undefined;
+  }
+
+  const newData = structuredClone(oldData);
+  const { pages } = newData;
+  const firstPage = pages[page || 0];
+  const { posts } = firstPage.data.postsAndStatusUpdates;
+
+  if (updateType === UPDATE_CACHE_TYPE.UPDATE) {
+    const foundPost = posts.find((post) => post.id === interactiveEntityId);
+
+    if (typeof like !== 'number') {
+      if (typeof like !== 'number') {
+        foundPost?.likes.push(like);
+      }
+    }
+  }
+
+  if (updateType === UPDATE_CACHE_TYPE.DELETE) {
+    const foundPost = posts.find((post) => post.id === interactiveEntityId);
+
+    if (foundPost?.likes) {
+      foundPost.likes = foundPost.likes.filter((item) => item.id !== like);
+    }
+  }
+
+  return newData;
+};
+
+export const updateLikeInGameCache = (
+  oldGameCache: CustomAGameResponse | undefined,
+  like: boolean,
+  updateType: UpdateCacheTypeValues
+) => {
+  if (!oldGameCache) {
+    return undefined;
+  }
+
+  const newData = JSON.parse(JSON.stringify(oldGameCache)) as CustomAGameResponse;
+  const { getGameById } = newData.data.data;
+
+  if (updateType === UPDATE_CACHE_TYPE.UPDATE) {
+    getGameById.gameLiked = like;
   }
 
   return newData;

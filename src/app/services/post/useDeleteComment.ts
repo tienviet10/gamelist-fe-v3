@@ -17,6 +17,7 @@ interface DeleteCommentResponse extends AxiosResponse {
 type DeleteParams = {
   commentId: number;
   interactiveEntityId: number;
+  page: number;
 };
 
 const useDeleteComment = () => {
@@ -38,10 +39,9 @@ const useDeleteComment = () => {
     onSuccess: (_, val) => {
       const { commentId, interactiveEntityId } = val;
 
-      // Update cache
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
-        updateCommentInCache(oldData, commentId, interactiveEntityId, UPDATE_CACHE_TYPE.DELETE)
+        updateCommentInCache(oldData, commentId, interactiveEntityId, val.page, UPDATE_CACHE_TYPE.DELETE)
       );
     },
   });
