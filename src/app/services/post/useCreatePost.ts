@@ -41,7 +41,6 @@ const useCreatePost = () => {
     onSuccess: (data) => {
       const { post: newPost } = data.data.data;
 
-      // Update cache
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
         updatePostByPost(oldData, newPost, UPDATE_CACHE_TYPE.CREATE)

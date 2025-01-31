@@ -6,6 +6,7 @@ export const loginRoute = `${authRoute}/login`;
 export const registerRoute = `${authRoute}/register`;
 
 export const gameRoute = 'game-service';
+export const gamesRoute = `${gameRoute}/games`;
 export const userGameRoute = `${gameRoute}/${apiV1}/usergames`;
 export const getUserGamesByStatus = `${gameRoute}/${apiV1}/usergames/status`;
 export const gameFiltersRoute = `${gameRoute}/gamefilters`;

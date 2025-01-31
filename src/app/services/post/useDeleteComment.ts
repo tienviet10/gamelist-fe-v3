@@ -39,7 +39,6 @@ const useDeleteComment = () => {
     onSuccess: (_, val) => {
       const { commentId, interactiveEntityId } = val;
 
-      // Update cache
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
         updateCommentInCache(oldData, commentId, interactiveEntityId, val.page, UPDATE_CACHE_TYPE.DELETE)

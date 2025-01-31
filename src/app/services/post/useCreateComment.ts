@@ -39,7 +39,6 @@ const useCreateComment = () => {
     onSuccess: (data, val) => {
       const { comment: newComment, interactiveEntityId } = data.data.data;
 
-      // Update cache
       queryClient.cancelQueries({ queryKey: ['postsAndStatusUpdates'] });
       queryClient.setQueryData(['postsAndStatusUpdates'], (oldData: OldPostsAndStatusUpdatesDataType | undefined) =>
         updateCommentInCache(oldData, newComment, interactiveEntityId, val.page, UPDATE_CACHE_TYPE.CREATE)

@@ -2,6 +2,7 @@ import { UPDATE_CACHE_TYPE } from '@app/constants/global/constants';
 import {
   CommentDTO,
   CommentsResponse,
+  CustomAGameResponse,
   LikeDTO,
   OldPostsAndStatusUpdatesDataType,
   PostsDTOResponse,
@@ -159,6 +160,25 @@ export const updatePostWithLike = (
     if (foundPost?.likes) {
       foundPost.likes = foundPost.likes.filter((item) => item.id !== like);
     }
+  }
+
+  return newData;
+};
+
+export const updateLikeInGameCache = (
+  oldGameCache: CustomAGameResponse | undefined,
+  like: boolean,
+  updateType: UpdateCacheTypeValues
+) => {
+  if (!oldGameCache) {
+    return undefined;
+  }
+
+  const newData = JSON.parse(JSON.stringify(oldGameCache)) as CustomAGameResponse;
+  const { getGameById } = newData.data.data;
+
+  if (updateType === UPDATE_CACHE_TYPE.UPDATE) {
+    getGameById.gameLiked = like;
   }
 
   return newData;
